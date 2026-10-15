@@ -1,1 +1,296 @@
-/* Anggota 2: awali class dengan .eksplorasi- agar CSS tidak berbenturan. */
+.eksplorasi-page {
+  min-width: 0;
+}
+
+.eksplorasi-heading {
+  margin-bottom: 20px;
+}
+
+.eksplorasi-eyebrow {
+  color: var(--pr);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.eksplorasi-heading h2 {
+  margin: 5px 0 6px;
+  color: var(--text);
+  font-size: 25px;
+  letter-spacing: -0.6px;
+}
+
+.eksplorasi-heading p,
+.eksplorasi-section-heading p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.eksplorasi-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: var(--shadow-sm);
+}
+
+.eksplorasi-search:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 135, 122, 0.1);
+}
+
+.eksplorasi-search > span {
+  flex: 0 0 auto;
+}
+
+.eksplorasi-search input {
+  width: 100%;
+  min-width: 0;
+  height: 54px;
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 14px;
+}
+
+.eksplorasi-search input:focus-visible {
+  outline: 0;
+}
+
+.eksplorasi-search input::placeholder {
+  color: var(--muted-light);
+}
+
+.eksplorasi-search button {
+  flex: 0 0 auto;
+  padding: 6px 8px;
+  color: var(--pr-dark);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.eksplorasi-search-hint {
+  margin: 7px 4px 0;
+  color: var(--muted-light);
+  font-size: 11px;
+}
+
+.eksplorasi-categories {
+  margin-top: 25px;
+}
+
+.eksplorasi-section-heading h3,
+.eksplorasi-results-heading h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.eksplorasi-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.eksplorasi-category {
+  display: flex;
+  min-width: 0;
+  min-height: 94px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px;
+  color: var(--text);
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.eksplorasi-category:hover {
+  transform: translateY(-2px);
+  border-color: var(--pr-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.eksplorasi-category.is-selected {
+  color: var(--pr-darker);
+  background: linear-gradient(145deg, #effaf7, var(--pr-light));
+  border-color: var(--pr);
+  box-shadow: 0 3px 12px rgba(0, 135, 122, 0.1);
+}
+
+.eksplorasi-category-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+
+.eksplorasi-category.is-selected .eksplorasi-category-icon {
+  background: white;
+  border-color: var(--pr-border);
+}
+
+.eksplorasi-category > span:last-child {
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.eksplorasi-results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 27px 0 14px;
+}
+
+.eksplorasi-results-heading > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.eksplorasi-page .quest-grid {
+  margin-bottom: 0;
+}
+
+.eksplorasi-page .quest-card {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.eksplorasi-page .quest-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.eksplorasi-card-details {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.eksplorasi-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.eksplorasi-card-badge {
+  padding: 5px 9px;
+  color: var(--pr-darker);
+  background: var(--pr-light);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.eksplorasi-card-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.eksplorasi-card-schedule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.eksplorasi-card-schedule span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.eksplorasi-page .quest-card .button {
+  min-height: 42px;
+  border-radius: 11px;
+}
+
+.eksplorasi-empty {
+  display: grid;
+  justify-items: center;
+  padding: 40px 16px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  text-align: center;
+}
+
+.eksplorasi-empty > span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  font-size: 25px;
+  background: var(--surface-alt);
+  border-radius: 16px;
+}
+
+.eksplorasi-empty h3 {
+  margin: 8px 0 4px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.eksplorasi-empty p {
+  margin: 0;
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .eksplorasi-category-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .eksplorasi-category {
+    min-height: 100px;
+    padding: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eksplorasi-category,
+  .eksplorasi-page .quest-card {
+    transition: none;
+  }
+}
