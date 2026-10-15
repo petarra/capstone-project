@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 import { useApp } from '../context/AppContext';
 
 export default function Navbar() {
   const { user } = useApp() || {};
 
   const navItems = [
-    { to: '/', icon: '⌂', label: 'Beranda' },
-    { to: '/quest', icon: '▤', label: 'Quest' },
-    { to: '/profil', icon: '♙', label: 'Profil' },
+    { to: '/', icon: 'lucide:home', label: '' },
+    { to: '/quest', icon: 'lucide:clipboard-list', label: '' },
+    { to: '/profil', icon: 'lucide:user', label: '' },
   ];
 
   return (
@@ -17,7 +18,9 @@ export default function Navbar() {
       <header className="desktop-header" aria-label="Navigasi desktop">
         <div className="desktop-header-inner">
           <Link to="/" className="brand-logo" aria-label="KampusGig Beranda">
-            <span className="brand-logo-icon">🎓</span>
+            <span className="brand-logo-icon">
+              <Icon icon="lucide:graduation-cap" width="22" height="22" />
+            </span>
             <div className="brand-logo-text">
               <span className="brand-title">KampusGig</span>
               <span className="brand-tag">UNTAN</span>
@@ -32,7 +35,7 @@ export default function Navbar() {
                 end={to === '/'}
                 className={({ isActive }) => `desktop-nav-link ${isActive ? 'active' : ''}`}
               >
-                <span className="nav-icon" aria-hidden="true">{icon}</span>
+                <Icon icon={icon} className="nav-icon" width="18" height="18" aria-hidden="true" />
                 <span className="nav-text">{label}</span>
               </NavLink>
             ))}
@@ -40,13 +43,13 @@ export default function Navbar() {
 
           <div className="desktop-header-right">
             <Link to="/quest" className="desktop-search-trigger" aria-label="Cari quest">
-              <span className="search-icon" aria-hidden="true">🔍</span>
-              <span className="search-hint">Cari quest di sekitar kampus...</span>
+              <Icon icon="lucide:search" className="search-icon" width="16" height="16" aria-hidden="true" />
+              <span className="search-hint">Cari</span>
               <kbd className="search-shortcut">/</kbd>
             </Link>
 
             <button className="icon-button header-bell-btn" disabled aria-label="Notifikasi belum dibuat">
-              🔔
+              <Icon icon="lucide:bell" width="18" height="18" aria-hidden="true" />
               <span className="bell-badge" aria-hidden="true"></span>
             </button>
 
@@ -54,7 +57,10 @@ export default function Navbar() {
               <img className="avatar avatar-sm" src="/student_avatar.jpg" alt="Foto profil demo" />
               <div className="user-pill-info">
                 <span className="user-pill-name">{user?.name || 'Mahasiswa UNTAN'}</span>
-                <span className="user-pill-sub">📍 UNTAN · Online</span>
+                <span className="user-pill-sub">
+                  <Icon icon="lucide:map-pin" width="12" height="12" style={{ verticalAlign: 'middle', marginRight: '3px' }} />
+                  UNTAN · Online
+                </span>
               </div>
             </Link>
           </div>
@@ -70,7 +76,7 @@ export default function Navbar() {
             end={to === '/'}
             className={({ isActive }) => `bottom-nav-link ${isActive ? 'active' : ''}`}
           >
-            <span className="bottom-nav-icon" aria-hidden="true">{icon}</span>
+            <Icon icon={icon} className="bottom-nav-icon" width="22" height="22" aria-hidden="true" />
             <span className="bottom-nav-label">{label}</span>
           </NavLink>
         ))}
@@ -78,3 +84,4 @@ export default function Navbar() {
     </>
   );
 }
+

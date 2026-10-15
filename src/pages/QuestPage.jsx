@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Icon } from '@iconify/react';
 import EksplorasiPage from '../features/eksplorasi/EksplorasiPage';
 import PesananPage from '../features/pesanan/PesananPage';
 import PekerjaanPage from '../features/pekerjaan/PekerjaanPage';
@@ -28,7 +29,8 @@ export default function QuestPage() {
               setTab('open');
             }}
           >
-            🛵 Mau Kerja (Mitra)
+            <Icon icon="lucide:bike" width="16" height="16" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            Mau Kerja (Mitra)
           </button>
           <button
             type="button"
@@ -38,7 +40,8 @@ export default function QuestPage() {
               setTab('order');
             }}
           >
-            📢 Buat Quest (Pemesan)
+            <Icon icon="lucide:megaphone" width="16" height="16" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            Buat Quest (Pemesan)
           </button>
         </div>
       </div>
@@ -53,14 +56,34 @@ export default function QuestPage() {
             className={['open', 'order'].includes(tab) ? 'on' : ''}
             onClick={() => setTab(role === 'worker' ? 'open' : 'order')}
           >
-            {role === 'worker' ? '🔍 Eksplorasi Quest' : '📝 Buat Pesanan Baru'}
+            {role === 'worker' ? (
+              <>
+                <Icon icon="lucide:search" width="14" height="14" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+                Eksplorasi Quest
+              </>
+            ) : (
+              <>
+                <Icon icon="lucide:file-plus" width="14" height="14" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+                Buat Pesanan Baru
+              </>
+            )}
           </button>
           <button
             type="button"
             className={['active', 'mine'].includes(tab) ? 'on' : ''}
             onClick={() => setTab(role === 'worker' ? 'active' : 'mine')}
           >
-            {role === 'worker' ? '⚡ Sedang Dikerjakan' : '📋 Pesanan Anda'}
+            {role === 'worker' ? (
+              <>
+                <Icon icon="lucide:zap" width="14" height="14" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+                Sedang Dikerjakan
+              </>
+            ) : (
+              <>
+                <Icon icon="lucide:clipboard-list" width="14" height="14" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+                Pesanan Anda
+              </>
+            )}
           </button>
         </div>
 
@@ -69,7 +92,8 @@ export default function QuestPage() {
           className="button outline-btn quick-chat-trigger"
           onClick={() => setChatOpen(true)}
         >
-          💬 Percakapan Quest
+          <Icon icon="lucide:message-square" width="16" height="16" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+          Percakapan Quest
         </button>
       </div>
 
@@ -90,7 +114,9 @@ export default function QuestPage() {
       {/* Section info chat */}
       <section className="panel chat-entry">
         <div className="chat-entry-body">
-          <div className="chat-entry-icon">💬</div>
+          <div className="chat-entry-icon">
+            <Icon icon="lucide:message-square" width="28" height="28" />
+          </div>
           <div className="chat-entry-text">
             <h3>Percakapan quest terintegrasi</h3>
             <p>Nantinya chat dibuka dari pesanan atau pekerjaan terkait untuk koordinasi langsung antar mahasiswa.</p>
@@ -113,7 +139,9 @@ export default function QuestPage() {
           >
             <div className="sheet-top-bar">
               <div className="sheet-title-group">
-                <span className="sheet-icon">💬</span>
+                <span className="sheet-icon">
+                  <Icon icon="lucide:message-square" width="20" height="20" />
+                </span>
                 <h3>Simulasi Percakapan Quest</h3>
               </div>
               <button
@@ -123,7 +151,7 @@ export default function QuestPage() {
                 onClick={() => setChatOpen(false)}
                 aria-label="Tutup jendela chat"
               >
-                ✕
+                <Icon icon="lucide:x" width="18" height="18" />
               </button>
             </div>
             <div className="sheet-content-scroll">
