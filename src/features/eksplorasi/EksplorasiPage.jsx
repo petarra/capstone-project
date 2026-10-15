@@ -5,7 +5,7 @@ import { useApp } from '../../context/AppContext';
 
 // Pencarian menggunakan query bersama dari kolom search yang sudah ada di Navbar/Beranda.
 export default function EksplorasiPage() {
-  const { quests, searchQuery } = useApp();
+  const { quests, searchQuery, setSearchQuery } = useApp();
   const normalizedQuery = (searchQuery || '').trim().toLocaleLowerCase('id-ID');
   const visibleQuests = quests.filter((quest) => {
     if (quest.status !== 'tersedia') return false;
@@ -40,6 +40,17 @@ export default function EksplorasiPage() {
               ? `Tidak ada quest yang cocok dengan “${searchQuery.trim()}”. Coba kata kunci lain.`
               : 'Quest yang tersedia akan muncul di sini.'}
           </p>
+          {normalizedQuery && (
+            <div style={{ marginTop: '12px' }}>
+              <button
+                type="button"
+                className="button outline-btn"
+                onClick={() => setSearchQuery?.('')}
+              >
+                Hapus pencarian
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>

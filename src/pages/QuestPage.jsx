@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useApp } from '../context/AppContext';
 import EksplorasiPage from '../features/eksplorasi/EksplorasiPage';
 import PesananPage from '../features/pesanan/PesananPage';
 import PekerjaanPage from '../features/pekerjaan/PekerjaanPage';
 import ChatPage from '../features/chat/ChatPage';
 
 export default function QuestPage() {
+  const { searchQuery } = useApp() || {};
   const [role, setRole] = useState('worker');
   const [tab, setTab] = useState('open');
   const [chatOpen, setChatOpen] = useState(false);
+
+  // Jika sedang mencari quest, pastikan tab eksplorasi aktif agar hasil langsung terlihat
+  useEffect(() => {
+    if (searchQuery && searchQuery.trim()) {
+      setRole('worker');
+      setTab('open');
+    }
+  }, [searchQuery]);
 
   return (
     <div className="quest-page-layout">

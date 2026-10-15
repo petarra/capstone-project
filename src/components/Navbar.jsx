@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 
 export default function Navbar() {
-  const { user, setSearchQuery } = useApp() || {};
+  const { user, searchQuery, setSearchQuery } = useApp() || {};
   // Nilai input Navbar berdiri sendiri; tidak terikat ke input Beranda.
-  const [navbarQuery, setNavbarQuery] = useState('');
+  const [navbarQuery, setNavbarQuery] = useState(searchQuery || '');
   const navigate = useNavigate();
+  const location = useLocation();
   const searchInputRef = useRef(null);
 
   // Shortcut '/' memfokuskan kolom pencarian yang sudah ada.
@@ -25,11 +26,31 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleShortcut);
   }, []);
 
+  // Sinkronkan navbarQuery jika searchQuery di context berubah dari luar (misal tombol reset di halaman quest)
+  useEffect(() => {
+    if (location.pathname === '/quest') {
+      setNavbarQuery((prev) => (prev !== (searchQuery || '') ? (searchQuery || '') : prev));
+    }
+  }, [searchQuery, location.pathname]);
+
+  // Jika sudah berada di halaman quest: apapun yang diketik langsung menyaring tampilan tanpa perlu tekan Enter.
+  // Jika di luar halaman quest: simpan input lokal saja, pencarian akan diarahkan ke quest saat menekan Enter.
+  const handleSearchChange = (event) => {
+    const val = event.target.value;
+    setNavbarQuery(val);
+    if (location.pathname === '/quest') {
+      setSearchQuery?.(val);
+    }
+  };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    // Terapkan kata kunci hanya ketika pengguna menekan Enter/tombol submit.
-    setSearchQuery(navbarQuery.trim());
-    navigate('/quest');
+    // Terapkan kata kunci
+    setSearchQuery?.(navbarQuery.trim());
+    // Arahkan ke halaman quest jika saat ini tidak berada di halaman quest
+    if (location.pathname !== '/quest') {
+      navigate('/quest');
+    }
   };
 
   const navItems = [
@@ -73,7 +94,7 @@ export default function Navbar() {
                 className="desktop-search-input"
                 type="search"
                 value={navbarQuery}
-                onChange={(event) => setNavbarQuery(event.target.value)}
+                onChange={handleSearchChange}
                 placeholder="Cari quest di sekitar kampus..."
                 aria-label="Cari quest di seluruh KampusGig"
               />
