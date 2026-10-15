@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import QuestCard from '../components/QuestCard';
 import { useApp } from '../context/AppContext';
 
 export default function HomePage() {
   const { user, quests } = useApp();
+  // Nilai input Beranda bersifat lokal agar tidak muncul di kolom Navbar.
+  const [homeQuery, setHomeQuery] = useState('');
+  const normalizedQuery = homeQuery.trim().toLocaleLowerCase('id-ID');
+  const visibleQuests = quests.filter((quest) => {
+    if (!normalizedQuery) return true;
+    const searchableText = [quest.title, quest.category, quest.pickup, quest.destination, quest.status]
+      .filter(Boolean)
+      .join(' ')
+      .toLocaleLowerCase('id-ID');
+    return normalizedQuery.split(/\s+/).every((word) => searchableText.includes(word));
+  });
 
   return (
     <div className="home-page-layout">
@@ -53,9 +64,11 @@ export default function HomePage() {
             <div className="search-input-box">
               <span className="input-search-icon" aria-hidden="true">🔍</span>
               <input
-                disabled
+                type="search"
+                value={homeQuery}
+                onChange={(event) => setHomeQuery(event.target.value)}
                 placeholder="Cari quest di sekitar kampus (antar berkas, beli makan)..."
-                aria-label="Pencarian belum dibuat"
+                aria-label="Cari quest di sekitar kampus"
               />
             </div>
             <button className="icon-button" disabled aria-label="Filter belum dibuat">☷</button>
@@ -90,11 +103,18 @@ export default function HomePage() {
             <Link to="/quest" className="see-all-link">Lihat semua ›</Link>
           </div>
 
-          <div className="quest-grid">
-            {quests.map((quest) => (
+          <div className="quest-grid" aria-live="polite">
+            {visibleQuests.map((quest) => (
               <QuestCard key={quest.id} quest={quest} />
             ))}
           </div>
+          {visibleQuests.length === 0 && (
+            <div className="panel" role="status" style={{ padding: '20px', textAlign: 'center' }}>
+              <strong>Quest tidak ditemukan</strong>
+              <p className="muted">Coba kata kunci lain, misalnya “makanan”, “kampus”, atau “berkas”.</p>
+              <button type="button" className="button outline-btn" onClick={() => setHomeQuery('')}>Hapus pencarian</button>
+            </div>
+          )}
 
           <p className="starter-note">Kerangka awal · data contoh · fitur bisnis belum dibuat</p>
         </div>

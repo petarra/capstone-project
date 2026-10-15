@@ -1,9 +1,36 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 
 export default function Navbar() {
-  const { user } = useApp() || {};
+  const { user, setSearchQuery } = useApp() || {};
+  // Nilai input Navbar berdiri sendiri; tidak terikat ke input Beranda.
+  const [navbarQuery, setNavbarQuery] = useState('');
+  const navigate = useNavigate();
+  const searchInputRef = useRef(null);
+
+  // Shortcut '/' memfokuskan kolom pencarian yang sudah ada.
+  useEffect(() => {
+    const handleShortcut = (event) => {
+      const target = event.target;
+      const isTyping = target instanceof HTMLElement && (
+        target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)
+      );
+      if (event.key === '/' && !isTyping && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
+  }, []);
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Terapkan kata kunci hanya ketika pengguna menekan Enter/tombol submit.
+    setSearchQuery(navbarQuery.trim());
+    navigate('/quest');
+  };
 
   const navItems = [
     { to: '/', icon: '⌂', label: 'Beranda' },
@@ -39,11 +66,21 @@ export default function Navbar() {
           </nav>
 
           <div className="desktop-header-right">
-            <Link to="/quest" className="desktop-search-trigger" aria-label="Cari quest">
+            <form className="desktop-search-trigger" role="search" onSubmit={handleSearchSubmit}>
               <span className="search-icon" aria-hidden="true">🔍</span>
-              <span className="search-hint">Cari quest di sekitar kampus...</span>
-              <kbd className="search-shortcut">/</kbd>
-            </Link>
+              <input
+                ref={searchInputRef}
+                className="desktop-search-input"
+                type="search"
+                value={navbarQuery}
+                onChange={(event) => setNavbarQuery(event.target.value)}
+                placeholder="Cari quest di sekitar kampus..."
+                aria-label="Cari quest di seluruh KampusGig"
+              />
+              <button className="search-submit-shortcut" type="submit" aria-label="Lihat hasil pencarian">
+                <kbd className="search-shortcut">↵</kbd>
+              </button>
+            </form>
 
             <button className="icon-button header-bell-btn" disabled aria-label="Notifikasi belum dibuat">
               🔔

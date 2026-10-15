@@ -244,6 +244,38 @@ p {
   box-shadow: var(--shadow-xs);
 }
 
+.desktop-search-trigger:focus-within {
+  border-color: var(--pr);
+  background: white;
+  box-shadow: var(--shadow-xs);
+}
+
+.desktop-search-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 2px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.desktop-search-input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.search-submit-shortcut {
+  display: flex;
+  align-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .search-shortcut {
   margin-left: auto;
   font-size: 10px;
