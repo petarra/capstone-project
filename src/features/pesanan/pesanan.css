@@ -1,1 +1,442 @@
-/* Anggota 3: awali class dengan .pesanan- agar CSS tidak berbenturan. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+.pesanan-section {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    color: #173b46;
+}
+
+.pesanan-heading {
+    margin-bottom: 20px;
+}
+
+.pesanan-heading h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.pesanan-heading p {
+    margin: 0;
+    color: #607981;
+    font-size: 14px;
+}
+
+/* Form pembuatan quest */
+.pesanan-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #dce8eb;
+    border-radius: 8px;
+}
+
+.pesanan-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.pesanan-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #173b46;
+}
+
+.pesanan-field input,
+.pesanan-field textarea,
+.pesanan-field select {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #d4e2e6;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #173b46;
+    font: inherit;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.pesanan-field textarea {
+    resize: vertical;
+}
+
+.pesanan-field input:focus,
+.pesanan-field textarea:focus,
+.pesanan-field select:focus {
+    outline: 2px solid #289cbe;
+    outline-offset: 1px;
+    border-color: #289cbe;
+}
+
+.pesanan-field small {
+    color: #607981;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.pesanan-submit {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #00877a;
+    border-radius: 8px;
+    background: #00877a;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.pesanan-submit:hover {
+    background: #00685e;
+    border-color: #00685e;
+}
+
+.pesanan-error {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #b42318;
+    font-size: 13px;
+}
+
+/* Daftar card pesanan */
+.pesanan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.pesanan-card {
+    min-width: 0;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #dce8eb;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.pesanan-tag,
+.pesanan-status {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.pesanan-tag {
+    color: #176b80;
+    background: #e7f7fb;
+}
+
+.pesanan-tag.makanan {
+    color: #176b80;
+    background: #e7f7fb;
+}
+
+.pesanan-tag.antar {
+    color: #087f70;
+    background: #e4f8f3;
+}
+
+.pesanan-tag.kampus {
+    color: #176b80;
+    background: #e7f7fb;
+}
+
+.pesanan-status {
+    color: #087f70;
+    background: #e4f8f3;
+}
+
+.pesanan-card h3 {
+    margin: 0;
+    color: #173b46;
+    font-size: 15px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-description {
+    margin: 0;
+    color: #607981;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.pesanan-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 9px;
+    border-top: 1px solid #edf2f4;
+}
+
+.pesanan-info span,
+.pesanan-location small,
+.pesanan-poster span {
+    color: #607981;
+    font-size: 11px;
+}
+
+.pesanan-info strong {
+    color: #087f70;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding-top: 9px;
+    border-top: 1px solid #edf2f4;
+}
+
+.pesanan-location>span {
+    flex-shrink: 0;
+}
+
+.pesanan-location>div {
+    min-width: 0;
+}
+
+.pesanan-location p {
+    margin: 4px 0;
+    color: #173b46;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.pesanan-location a {
+    color: #289cbe;
+    font-size: 11px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-poster {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 9px;
+    border-top: 1px solid #edf2f4;
+}
+
+.pesanan-poster strong {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-delete {
+    width: 100%;
+    margin-top: auto;
+    padding: 9px 8px;
+    border: 1px solid #00877a;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #00877a;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pesanan-delete:hover {
+    background: #00877a;
+    color: #ffffff;
+}
+
+/* Tampilan ketika belum ada pesanan */
+.pesanan-empty {
+    padding: 32px 16px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #dce8eb;
+    border-radius: 8px;
+}
+
+.pesanan-empty>span {
+    font-size: 32px;
+}
+
+.pesanan-empty h3 {
+    margin: 10px 0 6px;
+    font-size: 16px;
+}
+
+.pesanan-empty p {
+    margin: 0;
+    color: #607981;
+    font-size: 13px;
+}
+
+/* Dialog konfirmasi hapus */
+.pesanan-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgb(15 38 44 / 50%);
+}
+
+.pesanan-dialog {
+    width: 100%;
+    max-width: 360px;
+    padding: 24px;
+    border: 1px solid #dce8eb;
+    border-radius: 8px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.pesanan-dialog-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #e4f8f3;
+    color: #00685e;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.pesanan-dialog h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.pesanan-dialog p {
+    margin: 0;
+    color: #607981;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.pesanan-dialog-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.pesanan-dialog-actions button {
+    flex: 1;
+    padding: 11px 8px;
+    border: 1px solid #d4e2e6;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pesanan-cancel {
+    background: #ffffff;
+    color: #173b46;
+}
+
+.pesanan-confirm-delete {
+    background: #00877a;
+    color: #ffffff;
+    border-color: #00877a !important;
+}
+
+.pesanan-confirm-delete:hover {
+    background: #00685e;
+}
+
+/* Tablet: 4 kolom */
+@media (min-width: 768px) {
+    .pesanan-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 26px;
+    }
+
+    .pesanan-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .pesanan-card {
+        padding: 14px;
+    }
+}
+
+/* Desktop: 6 kolom */
+@media (min-width: 1024px) {
+    .pesanan-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+
+
+.pesanan-cost-summary {
+    grid-column: 1 / -1;
+    padding: 16px;
+    border: 1px solid #dce8eb;
+    border-radius: 8px;
+    background: #f7fcfd;
+}
+
+.pesanan-cost-summary h3 {
+    margin: 0 0 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.pesanan-cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 12px;
+}
+
+.pesanan-cost-row span:last-child,
+.pesanan-cost-row strong:last-child {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.pesanan-cost-total {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid #dce8eb;
+    color: #087f70;
+    font-size: 13px;
+}
+
+.pesanan-success {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #087f70;
+    font-size: 13px;
+    font-weight: 600;
+}
