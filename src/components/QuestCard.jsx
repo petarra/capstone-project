@@ -3,12 +3,28 @@ import Button from './Button';
 
 const icons = { makanan: '🍱', antar: '🛵', kampus: '🎓' };
 
-export default function QuestCard({ quest }) {
+const clientTypeLabels = {
+  dosen: 'Dosen',
+  staff: 'Staff',
+  staf: 'Staff',
+  mahasiswa: 'Mahasiswa',
+};
+
+const jobTypeLabels = {
+  'sekitar-kampus': 'Sekitar kampus',
+  'antar-jemput': 'Antar-jemput',
+};
+
+export default function QuestCard({ quest, showDetails = false }) {
   const formattedPay = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
     maximumFractionDigits: 0,
   }).format(quest.pay);
+  const schedule = quest.scheduledAt ? new Date(quest.scheduledAt) : null;
+  const formattedSchedule = schedule && !Number.isNaN(schedule.getTime())
+    ? new Intl.DateTimeFormat('id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(schedule)
+    : quest.scheduledAt;
 
   return (
     <article className="panel quest-card">
@@ -17,6 +33,29 @@ export default function QuestCard({ quest }) {
         <span className={`tag tag-${quest.category}`}>{quest.category}</span>
       </div>
       <h3 className="quest-title">{quest.title}</h3>
+      {showDetails && (
+        <div className="eksplorasi-card-details">
+          <div className="eksplorasi-card-badges">
+            {quest.clientType && (
+              <span className="eksplorasi-card-badge">
+                Pemesan: {clientTypeLabels[quest.clientType] || quest.clientType}
+              </span>
+            )}
+            {quest.jobType && (
+              <span className="eksplorasi-card-badge">
+                {jobTypeLabels[quest.jobType] || quest.jobType}
+              </span>
+            )}
+          </div>
+          {quest.description && <p className="eksplorasi-card-description">{quest.description}</p>}
+          {formattedSchedule && (
+            <p className="eksplorasi-card-schedule">
+              <span>Jadwal</span>
+              {formattedSchedule}
+            </p>
+          )}
+        </div>
+      )}
       <p className="quest-route">
         <span className="route-from">{quest.pickup}</span>
         <span className="route-sep" aria-hidden="true"> → </span>
@@ -27,8 +66,11 @@ export default function QuestCard({ quest }) {
           <small className="pay-caption">Imbalan</small>
           <strong className="pay">{formattedPay}</strong>
         </div>
-        <Button disabled title="Dikerjakan anggota 2 dan 4">
-          Detail / Ambil — belum dibuat
+        <Button
+          disabled
+          title={showDetails ? 'Fitur ambil quest belum tersedia' : 'Dikerjakan anggota 2 dan 4'}
+        >
+          {showDetails ? 'Ambil quest · segera hadir' : 'Detail / Ambil — belum dibuat'}
         </Button>
       </div>
     </article>
