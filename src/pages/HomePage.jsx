@@ -19,8 +19,12 @@ export default function HomePage() {
 
   // Nilai input Beranda bersifat lokal agar tidak muncul di kolom Navbar.
   const [homeQuery, setHomeQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const normalizedQuery = homeQuery.trim().toLocaleLowerCase('id-ID');
   const visibleQuests = availableQuests.filter((quest) => {
+    const matchesCategory = !selectedCategory
+      || String(quest.category || '').toLocaleLowerCase('id-ID') === selectedCategory;
+    if (!matchesCategory) return false;
     if (!normalizedQuery) return true;
     const searchableText = [quest.title, quest.category, quest.pickup, quest.destination, quest.status]
       .filter(Boolean)
@@ -93,15 +97,21 @@ export default function HomePage() {
             </div>
             <div className="categories">
               {[
-                ['🏛️', 'Kampus', 'Tugas & Panitia'],
-                ['🛵', 'Antar', 'Titip & Kirim'],
-                ['🍴', 'Makanan', 'Kantin & Kuliner'],
-              ].map(([icon, label, note]) => (
-                <div key={label} className="category-item">
+                ['🏛️', 'Kampus', 'Tugas & Panitia', 'kampus'],
+                ['🛵', 'Antar', 'Titip & Kirim', 'antar'],
+                ['🍴', 'Makanan', 'Kantin & Kuliner', 'makanan'],
+              ].map(([icon, label, note, category]) => (
+                <button
+                  key={label}
+                  className={`category-item${selectedCategory === category ? ' active' : ''}`}
+                  type="button"
+                  aria-pressed={selectedCategory === category}
+                  onClick={() => setSelectedCategory(selectedCategory === category ? '' : category)}
+                >
                   <span className="category-icon">{icon}</span>
                   <b>{label}</b>
                   <small className="category-note">{note}</small>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -109,7 +119,7 @@ export default function HomePage() {
           {/* Quest Terdekat */}
           <div className="section-head">
             <div>
-              <h2>Quest Terdekat</h2>
+              <h2>{selectedCategory ? `Quest ${selectedCategory[0].toUpperCase()}${selectedCategory.slice(1)}` : 'Quest Terdekat'}</h2>
               <span className="muted">Peluang terbaru di area kampusmu</span>
             </div>
             <Link to="/quest" className="see-all-link">Lihat semua ›</Link>
@@ -124,7 +134,16 @@ export default function HomePage() {
             <div className="panel" role="status" style={{ padding: '20px', textAlign: 'center' }}>
               <strong>Quest tidak ditemukan</strong>
               <p className="muted">Coba kata kunci lain, misalnya “makanan”, “kampus”, atau “berkas”.</p>
-              <button type="button" className="button outline-btn" onClick={() => setHomeQuery('')}>Hapus pencarian</button>
+              <button
+                type="button"
+                className="button outline-btn"
+                onClick={() => {
+                  setHomeQuery('');
+                  setSelectedCategory('');
+                }}
+              >
+                Hapus filter
+              </button>
             </div>
           )}
 
@@ -145,30 +164,6 @@ export default function HomePage() {
               <small className="saldo-subtext">Akun Mitra UNTAN</small>
             </div>
           </section>
-
-          {/* Jadwal Hari Ini */}
-          <div className="panel schedule-panel">
-            <div className="section-head section-head-compact">
-              <h2>Jadwal Hari Ini</h2>
-              <span className="muted">Contoh jadwal</span>
-            </div>
-            <div className="schedule">
-              {[
-                ['📖', 'Kuliah', '08.00–10.00', 'Gedung FKIP'],
-                ['🧪', 'Praktikum', '13.00–15.00', 'Lab Komputer'],
-                ['👥', 'Organisasi', '19.00–21.00', 'Sekretariat'],
-              ].map(([icon, title, time, loc]) => (
-                <div key={title} className="schedule-card">
-                  <span className="schedule-emoji">{icon}</span>
-                  <div className="schedule-detail">
-                    <b>{title}</b>
-                    <small className="schedule-hours">{time}</small>
-                    <small className="schedule-room">{loc}</small>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* Tips Mahasiswa Card */}
           <div className="panel student-tips-panel">
