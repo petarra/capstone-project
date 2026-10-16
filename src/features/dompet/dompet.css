@@ -4,11 +4,11 @@
   width: 100%;
   box-sizing: border-box;
   padding: 26px;
-  border: 1px solid #e7eef2;
+  border: 1px solid var(--border);
   border-radius: 20px;
   background: #ffffff;
-  color: #243746;
-  box-shadow: 0 8px 28px rgba(29, 71, 91, 0.06);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
 }
 
 .dompet-heading {
@@ -18,7 +18,7 @@
 .dompet-eyebrow {
   display: inline-block;
   margin-bottom: 8px;
-  color: #289cbe;
+  color: var(--pr);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.8px;
@@ -27,8 +27,8 @@
 
 .dompet-heading h2 {
   margin: 0 0 8px;
-  color: #193746;
-  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
   font-size: 23px;
   font-weight: 750;
   line-height: 1.35;
@@ -36,7 +36,7 @@
 
 .dompet-heading p {
   margin: 0;
-  color: #7b8b97;
+  color: var(--muted);
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   line-height: 1.7;
@@ -47,7 +47,7 @@
   overflow: hidden;
   padding: 24px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #289cbe 0%, #2fc4b2 100%);
+  background: linear-gradient(135deg, var(--pr) 0%, var(--pr-teal, #2fc4b2) 100%);
   color: #ffffff;
   box-shadow: 0 8px 24px rgba(40, 156, 190, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -70,7 +70,7 @@
 
 .dompet-saldo-card h3 {
   margin: 10px 0 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(24px, 4vw, 32px);
   font-weight: 800;
   letter-spacing: -0.5px;
@@ -79,6 +79,7 @@
 
 .dompet-saldo-card p {
   margin: 0;
+  color: #ffffff;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   opacity: 0.88;
@@ -96,15 +97,15 @@
   gap: 12px;
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--border);
 }
 
 .dompet-history-heading h3 {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 17px;
   font-weight: 700;
-  color: #193746;
+  color: var(--text);
 }
 
 .dompet-history-heading span {
@@ -112,8 +113,8 @@
   align-items: center;
   padding: 4px 10px;
   border-radius: 20px;
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--pr-light);
+  color: var(--pr-dark);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 600;
@@ -121,23 +122,23 @@
 
 .dompet-empty {
   padding: 32px 18px;
-  border: 1.5px dashed #cbd5e1;
+  border: 1.5px dashed var(--pr-border);
   border-radius: 14px;
-  background: #f8fafc;
+  background: var(--surface-alt);
   text-align: center;
 }
 
 .dompet-empty p {
   margin: 0 0 6px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 14px;
-  color: #334155;
+  color: var(--text);
 }
 
 .dompet-empty span {
   display: block;
-  color: #64748b;
+  color: var(--muted);
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   line-height: 1.5;
@@ -154,13 +155,13 @@
   align-items: center;
   gap: 16px;
   padding: 14px 10px;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--border);
   border-radius: 10px;
   transition: background 0.15s ease;
 }
 
 .dompet-item:hover {
-  background: #f8fafc;
+  background: var(--surface-alt);
 }
 
 .dompet-item:last-child {
@@ -178,17 +179,17 @@
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #243f4d;
+  color: var(--text);
 }
 
 .dompet-item-info span {
-  color: #7b8b97;
+  color: var(--muted);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
 }
 
 .dompet-item-info small {
-  color: #94a3b8;
+  color: var(--muted-light);
   font-family: 'Inter', sans-serif;
   font-size: 10px;
 }
@@ -196,14 +197,14 @@
 .dompet-amount-positive,
 .dompet-amount-negative {
   flex-shrink: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 750;
   overflow-wrap: anywhere;
 }
 
 .dompet-amount-positive {
-  color: #168b78;
+  color: var(--pr-dark);
 }
 
 .dompet-amount-negative {
@@ -213,8 +214,8 @@
 .dompet-note {
   margin-top: 20px;
   padding-top: 14px;
-  border-top: 1px solid #edf2f7;
-  color: #84939d;
+  border-top: 1px solid var(--border);
+  color: var(--muted-light);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   line-height: 1.7;

@@ -195,6 +195,60 @@
   cursor: not-allowed;
 }
 
+.pekerjaan-notice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(19, 51, 48, 0.48);
+}
+
+.pekerjaan-notice {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 400px);
+  padding: 28px 24px 24px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.pekerjaan-notice-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--pr-light);
+  color: var(--pr-dark);
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.pekerjaan-notice-error .pekerjaan-notice-icon {
+  background: #fff1f0;
+  color: #b42318;
+}
+
+.pekerjaan-notice h3 {
+  margin: 14px 0 6px;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.pekerjaan-notice p {
+  margin: 0 0 20px;
+  font-size: 13px;
+}
+
+.pekerjaan-notice .button {
+  min-width: 112px;
+}
+
 @media (min-width: 768px) {
   .pekerjaan-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));

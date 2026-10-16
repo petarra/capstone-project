@@ -15,6 +15,7 @@ export default function PekerjaanPage({ onOpenChat }) {
   const [proofPreview, setProofPreview] = useState('');
   const [proofError, setProofError] = useState('');
   const [submittingProof, setSubmittingProof] = useState(false);
+  const [completionNotice, setCompletionNotice] = useState(null);
   const invitations = quests.filter(
     (quest) => quest.status === 'menunggu-konfirmasi' && quest.requestedWorkerId === user.id,
   );
@@ -134,13 +135,23 @@ export default function PekerjaanPage({ onOpenChat }) {
   });
 
   const submitCompletion = async (questId) => {
-    if (!proofFile || submittingProof) return;
+    if (submittingProof) return;
+    if (!proofFile) {
+      setCompletionNotice({
+        type: 'error',
+        message: 'Pilih atau ambil foto bukti sebelum menyelesaikan quest.',
+      });
+      return;
+    }
     const currentQuest = quests.find((quest) => (
       quest.id === questId && quest.workerId === user.id
         && ['diambil', 'dikerjakan'].includes(quest.status)
     ));
     if (!currentQuest) {
-      setProofError('Pekerjaan ini sudah tidak aktif. Muat ulang daftar pekerjaan.');
+      setCompletionNotice({
+        type: 'error',
+        message: 'Pekerjaan ini sudah tidak aktif. Muat ulang daftar pekerjaan.',
+      });
       return;
     }
 
@@ -189,8 +200,16 @@ export default function PekerjaanPage({ onOpenChat }) {
       }
       setProofQuestId(null);
       setProofFile(null);
+      setCompletionNotice({
+        type: 'success',
+        message: `Quest "${currentQuest.title}" berhasil diselesaikan.`,
+      });
     } catch (error) {
       setProofError(error instanceof Error ? error.message : 'Foto bukti gagal diproses. Silakan coba lagi.');
+      setCompletionNotice({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Foto bukti gagal diproses. Silakan coba lagi.',
+      });
     } finally {
       setSubmittingProof(false);
     }
@@ -303,7 +322,7 @@ export default function PekerjaanPage({ onOpenChat }) {
                       <button
                         className="button"
                         type="button"
-                        disabled={!proofFile || submittingProof}
+                        disabled={submittingProof}
                         onClick={() => submitCompletion(quest.id)}
                       >
                         {submittingProof ? 'Mengirim bukti...' : 'Kirim bukti & selesaikan'}
@@ -344,6 +363,36 @@ export default function PekerjaanPage({ onOpenChat }) {
           </div>
         )}
       </section>
+      {completionNotice && (
+        <div
+          className="pekerjaan-notice-overlay"
+          onClick={() => setCompletionNotice(null)}
+        >
+          <section
+            className={`pekerjaan-notice pekerjaan-notice-${completionNotice.type}`}
+            role={completionNotice.type === 'error' ? 'alertdialog' : 'dialog'}
+            aria-modal="true"
+            aria-labelledby="pekerjaan-notice-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <span className="pekerjaan-notice-icon" aria-hidden="true">
+              {completionNotice.type === 'success' ? '✓' : '!'}
+            </span>
+            <h3 id="pekerjaan-notice-title">
+              {completionNotice.type === 'success' ? 'Berhasil' : 'Gagal'}
+            </h3>
+            <p>{completionNotice.message}</p>
+            <button
+              type="button"
+              className="button"
+              autoFocus
+              onClick={() => setCompletionNotice(null)}
+            >
+              Tutup
+            </button>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

@@ -39,7 +39,7 @@ export default function QuestPage() {
               setTab('open');
             }}
           >
-            🛵 Mau Kerja (Mitra)
+            🛵 Mau Kerja 
           </button>
           <button
             type="button"

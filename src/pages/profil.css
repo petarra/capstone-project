@@ -4,7 +4,20 @@
 
 .profil-page-layout {
   width: 100%;
-  color: #243746;
+  color: var(--text);
+  --pr: #289cbe;
+  --pr-dark: #289cbe;
+  --pr-darker: #289cbe;
+  --pr-teal: #2fc4b2;
+  --pr-light: rgba(47, 196, 178, 0.12);
+  --pr-border: rgba(40, 156, 190, 0.28);
+  --surface: #ffffff;
+  --surface-alt: #ffffff;
+  --border: rgba(40, 156, 190, 0.18);
+  --border-focus: #289cbe;
+  --shadow-xs: 0 1px 3px rgba(40, 156, 190, 0.06);
+  --shadow-sm: 0 2px 8px rgba(40, 156, 190, 0.08);
+  --shadow-md: 0 8px 24px rgba(40, 156, 190, 0.1);
 }
 
 /* Page Header */
@@ -15,7 +28,7 @@
 .profil-page-eyebrow {
   display: inline-block;
   margin-bottom: 6px;
-  color: #289cbe;
+  color: var(--pr);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 800;
@@ -28,7 +41,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 26px;
   font-weight: 750;
-  color: #193746;
+  color: var(--text);
   letter-spacing: -0.4px;
   line-height: 1.3;
 }
@@ -37,7 +50,7 @@
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #718096;
+  color: var(--muted);
   line-height: 1.6;
 }
 
@@ -76,11 +89,11 @@
   width: 100%;
   box-sizing: border-box;
   padding: 26px;
-  border: 1px solid #e7eef2;
+  border: 1px solid var(--border);
   border-radius: 20px;
   background: #ffffff;
-  color: #243746;
-  box-shadow: 0 8px 28px rgba(29, 71, 91, 0.06);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
   text-align: left;
   margin-bottom: 0;
 }
@@ -100,12 +113,12 @@
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #289cbe 0%, #2fc4b2 100%);
+  background: linear-gradient(135deg, var(--pr) 0%, var(--pr-teal) 100%);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 26px;
   font-weight: 700;
   border: 3px solid #ffffff;
@@ -120,7 +133,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #2fc4b2;
+  background: var(--pr-dark);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -138,10 +151,10 @@
 
 .profile-basic-info h2 {
   margin: 0 0 4px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 19px;
   font-weight: 700;
-  color: #193746;
+  color: var(--text);
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
@@ -150,7 +163,7 @@
   margin: 0 0 8px;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #718096;
+  color: var(--muted);
 }
 
 .profile-role-badge {
@@ -159,9 +172,9 @@
   gap: 6px;
   padding: 4px 11px;
   border-radius: 20px;
-  background: #eafaf5;
-  border: 1px solid #c8f0e6;
-  color: #168b78;
+  background: var(--pr-light);
+  border: 1px solid var(--pr-border);
+  color: var(--pr-dark);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 700;
@@ -171,7 +184,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #2fc4b2;
+  background: var(--pr-dark);
   display: inline-block;
 }
 
@@ -182,8 +195,8 @@
   justify-content: space-around;
   margin-top: 22px;
   padding: 14px 10px;
-  background: #f8fafc;
-  border: 1px solid #edf2f7;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
   border-radius: 14px;
 }
 
@@ -196,23 +209,23 @@
 }
 
 .profile-highlight-item strong {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 750;
-  color: #193746;
+  color: var(--text);
 }
 
 .profile-highlight-item span {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  color: #718096;
+  color: var(--muted);
   font-weight: 500;
 }
 
 .profile-highlight-divider {
   width: 1px;
   height: 26px;
-  background: #e2e8f0;
+  background: var(--border);
 }
 
 /* Wallet Wrapper */
@@ -225,11 +238,11 @@
   width: 100%;
   box-sizing: border-box;
   padding: 26px;
-  border: 1px solid #e7eef2;
+  border: 1px solid var(--border);
   border-radius: 20px;
   background: #ffffff;
-  color: #243746;
-  box-shadow: 0 8px 28px rgba(29, 71, 91, 0.06);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
   margin-bottom: 0;
 }
 
@@ -240,7 +253,7 @@
 .campus-settings-eyebrow {
   display: inline-block;
   margin-bottom: 8px;
-  color: #289cbe;
+  color: var(--pr);
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 800;
@@ -250,10 +263,10 @@
 
 .campus-settings-header h2 {
   margin: 0 0 6px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 750;
-  color: #193746;
+  color: var(--text);
   line-height: 1.35;
 }
 
@@ -261,7 +274,7 @@
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: #7b8b97;
+  color: var(--muted);
   line-height: 1.6;
 }
 
@@ -276,16 +289,16 @@
   align-items: flex-start;
   gap: 14px;
   padding: 14px 16px;
-  background: #f8fafc;
-  border: 1px solid #edf2f7;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
   border-radius: 13px;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
 .campus-settings-card .settings-list-item:hover {
   transform: translateY(-1px);
-  border-color: #b9e5ed;
-  background: #f4fbfd;
+  border-color: var(--pr-border);
+  background: var(--pr-light);
 }
 
 .campus-settings-card .setting-icon {
@@ -299,7 +312,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text);
   margin-bottom: 3px;
 }
 
@@ -307,7 +320,7 @@
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  color: #64748b;
+  color: var(--muted);
   line-height: 1.5;
 }
 
