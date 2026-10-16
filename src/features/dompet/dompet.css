@@ -1,1 +1,289 @@
 /* Anggota 6: awali class dengan .dompet- agar CSS tidak berbenturan. */
+
+.dompet-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 26px;
+  border: 1px solid #e7eef2;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #243746;
+  box-shadow: 0 8px 28px rgba(29, 71, 91, 0.06);
+}
+
+.dompet-heading {
+  margin-bottom: 22px;
+}
+
+.dompet-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #289cbe;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.dompet-heading h2 {
+  margin: 0 0 8px;
+  color: #193746;
+  font-family: 'Poppins', sans-serif;
+  font-size: 23px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.dompet-heading p {
+  margin: 0;
+  color: #7b8b97;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.dompet-saldo-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #289cbe 0%, #2fc4b2 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(40, 156, 190, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dompet-saldo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(40, 156, 190, 0.28);
+}
+
+.dompet-saldo-label {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.dompet-saldo-card h3 {
+  margin: 10px 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  overflow-wrap: anywhere;
+}
+
+.dompet-saldo-card p {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  opacity: 0.88;
+  line-height: 1.5;
+}
+
+.dompet-history {
+  margin-top: 26px;
+}
+
+.dompet-history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.dompet-history-heading h3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #193746;
+}
+
+.dompet-history-heading span {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dompet-empty {
+  padding: 32px 18px;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.dompet-empty p {
+  margin: 0 0 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #334155;
+}
+
+.dompet-empty span {
+  display: block;
+  color: #64748b;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dompet-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.dompet-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 10px;
+  border-bottom: 1px solid #edf2f7;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.dompet-item:hover {
+  background: #f8fafc;
+}
+
+.dompet-item:last-child {
+  border-bottom: none;
+}
+
+.dompet-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.dompet-item-info strong {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #243f4d;
+}
+
+.dompet-item-info span {
+  color: #7b8b97;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+}
+
+.dompet-item-info small {
+  color: #94a3b8;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+}
+
+.dompet-amount-positive,
+.dompet-amount-negative {
+  flex-shrink: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.dompet-amount-positive {
+  color: #168b78;
+}
+
+.dompet-amount-negative {
+  color: #c44755;
+}
+
+.dompet-note {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #edf2f7;
+  color: #84939d;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .dompet-container {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .dompet-heading h2 {
+    font-size: 21px;
+  }
+
+  .dompet-saldo-card {
+    padding: 20px;
+  }
+}
+
+/* Ponsel */
+@media (max-width: 480px) {
+  .dompet-container {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .dompet-heading {
+    margin-bottom: 18px;
+  }
+
+  .dompet-heading h2 {
+    font-size: 19px;
+  }
+
+  .dompet-heading p {
+    font-size: 12px;
+  }
+
+  .dompet-saldo-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .dompet-saldo-card h3 {
+    margin: 8px 0 6px;
+    font-size: 24px;
+  }
+
+  .dompet-item {
+    align-items: flex-start;
+    padding: 12px 6px;
+  }
+
+  .dompet-amount-positive,
+  .dompet-amount-negative {
+    max-width: 48%;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dompet-saldo-card,
+  .dompet-item {
+    transition: none;
+  }
+
+  .dompet-saldo-card:hover {
+    transform: none;
+  }
+}
