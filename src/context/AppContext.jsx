@@ -73,6 +73,7 @@ export function AppProvider({ children }) {
   const [messages, setMessages] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
+  const [notifications, setNotifications] = useState([]);
   const login = ({ email, password }) => {
     const normalizedEmail = email?.trim().toLowerCase();
     const account = [...defaultAccounts, ...readRegisteredUsers()].find(
@@ -158,6 +159,8 @@ export function AppProvider({ children }) {
         setMessages,
         transactions,
         setTransactions,
+        notifications,
+        setNotifications,
       }}
     >
       {children}

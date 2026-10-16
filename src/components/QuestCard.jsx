@@ -15,7 +15,17 @@ const jobTypeLabels = {
   'antar-jemput': 'Antar-jemput',
 };
 
-export default function QuestCard({ quest, showDetails = false }) {
+const statusLabels = {
+  tersedia: 'Tersedia',
+  'menunggu-konfirmasi': 'Menunggu konfirmasi',
+  diambil: 'Sudah diambil',
+  dikerjakan: 'Sedang dikerjakan',
+  selesai: 'Selesai',
+  ditolak: 'Ditolak',
+  dibatalkan: 'Dibatalkan',
+};
+
+export default function QuestCard({ quest, showDetails = false, onAccept, userId }) {
   const formattedPay = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -30,7 +40,13 @@ export default function QuestCard({ quest, showDetails = false }) {
     <article className="panel quest-card">
       <div className="card-top">
         <span className="quest-icon" aria-hidden="true">{icons[quest.category] || '📦'}</span>
-        <span className={`tag tag-${quest.category}`}>{quest.category}</span>
+        {showDetails ? (
+          <span className={`quest-status quest-status-${quest.status}`}>
+            {statusLabels[quest.status] || quest.status}
+          </span>
+        ) : (
+          <span className={`tag tag-${quest.category}`}>{quest.category}</span>
+        )}
       </div>
       <h3 className="quest-title">{quest.title}</h3>
       {showDetails && (
@@ -40,6 +56,9 @@ export default function QuestCard({ quest, showDetails = false }) {
               <span className="eksplorasi-card-badge">
                 Pemesan: {clientTypeLabels[quest.clientType] || quest.clientType}
               </span>
+            )}
+            {quest.requestedWorkerId && quest.status === 'menunggu-konfirmasi' && (
+              <span className="eksplorasi-card-badge">Undangan khusus</span>
             )}
             {quest.jobType && (
               <span className="eksplorasi-card-badge">
@@ -66,12 +85,18 @@ export default function QuestCard({ quest, showDetails = false }) {
           <small className="pay-caption">Imbalan</small>
           <strong className="pay">{formattedPay}</strong>
         </div>
-        <Button
-          disabled
-          title={showDetails ? 'Fitur ambil quest belum tersedia' : 'Dikerjakan anggota 2 dan 4'}
-        >
-          {showDetails ? 'Ambil quest · segera hadir' : 'Detail / Ambil — belum dibuat'}
-        </Button>
+        {showDetails && quest.status === 'tersedia' && onAccept ? (
+          <Button type="button" onClick={() => onAccept(quest.id)}>Ambil pekerjaan</Button>
+        ) : showDetails && quest.workerId && quest.workerId === userId ? (
+          <Button type="button" disabled>Sudah kamu ambil</Button>
+        ) : (
+          <Button
+            disabled
+            title={showDetails ? 'Pekerjaan ini sudah tidak tersedia' : 'Dikerjakan anggota 2 dan 4'}
+          >
+            {showDetails ? statusLabels[quest.status] || quest.status : 'Detail / Ambil — belum dibuat'}
+          </Button>
+        )}
       </div>
     </article>
   );

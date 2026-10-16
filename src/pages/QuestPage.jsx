@@ -3,9 +3,13 @@ import EksplorasiPage from '../features/eksplorasi/EksplorasiPage';
 import PesananPage from '../features/pesanan/PesananPage';
 import PekerjaanPage from '../features/pekerjaan/PekerjaanPage';
 import ChatPage from '../features/chat/ChatPage';
+import { demoClient, demoWorkers } from '../data/dummyData';
+import { useApp } from '../context/AppContext';
 
 export default function QuestPage() {
+  const { user, setUser } = useApp();
   const [role, setRole] = useState('worker');
+  const [previewWorkerId, setPreviewWorkerId] = useState(demoWorkers[0].id);
   const [tab, setTab] = useState('open');
   const [chatOpen, setChatOpen] = useState(false);
 
@@ -25,6 +29,7 @@ export default function QuestPage() {
             className={role === 'worker' ? 'on' : ''}
             onClick={() => {
               setRole('worker');
+              setUser(demoWorkers.find((worker) => worker.id === previewWorkerId) || demoWorkers[0]);
               setTab('open');
             }}
           >
@@ -35,6 +40,7 @@ export default function QuestPage() {
             className={role === 'client' ? 'on' : ''}
             onClick={() => {
               setRole('client');
+              setUser(demoClient);
               setTab('order');
             }}
           >
@@ -43,7 +49,23 @@ export default function QuestPage() {
         </div>
       </div>
 
-      <p className="starter-note">Pilihan peran hanya untuk preview kerangka, belum terhubung ke akun.</p>
+      <p className="starter-note">Mode demo: pilih identitas pekerja untuk mencoba undangan kerja langsung.</p>
+      {role === 'worker' && (
+        <label className="quest-preview-worker">
+          Preview sebagai pekerja
+          <select
+            value={user.role === 'worker' ? user.id : previewWorkerId}
+            onChange={(event) => {
+              setPreviewWorkerId(event.target.value);
+              setUser(demoWorkers.find((worker) => worker.id === event.target.value) || demoWorkers[0]);
+            }}
+          >
+            {demoWorkers.map((worker) => (
+              <option key={worker.id} value={worker.id}>{worker.name}</option>
+            ))}
+          </select>
+        </label>
+      )}
 
       {/* Subtab navigasi fitur */}
       <div className="quest-subnav-row">
