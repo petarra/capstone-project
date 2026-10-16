@@ -1,25 +1,29 @@
+
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { useApp } from '../context/AppContext';
 import AkunPage from '../features/akun/AkunPage';
 import DompetPage from '../features/dompet/DompetPage';
+import './profil.css';
 
 export default function ProfilPage() {
   const { user } = useApp();
 
   return (
     <div className="profil-page-layout">
-      <div className="page-header-row">
-        <div>
-          <h1 className="page-title">Profil & Dompet</h1>
-          <p className="muted">Kelola akun mahasiswa, preferensi, dan saldo dompet KampusGig kamu.</p>
-        </div>
+      {/* Header Halaman Profil */}
+      <div className="profil-page-header">
+        <span className="profil-page-eyebrow">PROFIL & DOMPET</span>
+        <h1>Profil Saya</h1>
+        <p>Kelola informasi akun, peran mahasiswa, dan penghasilan dompet KampusGig kamu.</p>
       </div>
 
       <div className="profil-dashboard-grid">
-        {/* Kolom Kiri: Kartu Profil & Dompet */}
+        {/* Kolom kiri: Profil dan Dompet */}
         <div className="profil-left-column">
+          {/* Kartu Profil Pengguna */}
           <section className="panel profile-card">
+<<<<<<< HEAD
             <div className="avatar-container">
               {user?.avatar ? (
                 <img className="avatar large" src={user.avatar} alt={user?.name || 'Profil'} />
@@ -42,28 +46,60 @@ export default function ProfilPage() {
               <Icon icon="lucide:bike" width="14" height="14" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
               Mitra Pekerja Kampus · demo
             </span>
+=======
+            <div className="profile-card-header">
+              <div className="profile-avatar-wrapper">
+                <div className="profile-avatar" aria-label="Avatar profil">
+                  {(user?.name || 'K').charAt(0).toUpperCase()}
+                </div>
+                <span className="profile-verified-badge" title="Terverifikasi Mahasiswa UNTAN">✓</span>
+              </div>
+>>>>>>> 94c6bc9 (feat: implement account info and wallet)
 
+              <div className="profile-basic-info">
+                <h2>{user?.name || 'Pengguna KampusGig'}</h2>
+                <p>NIM: {user?.nim || 'Belum diisi'}</p>
+                <div className="profile-role-badge">
+                  <span className="profile-role-dot" />
+                  {user ? (user.role === 'client' ? 'Pemberi Quest (Pemesan)' : 'Mitra Pekerja Kampus') : 'Tamu (Belum Masuk)'}
+                </div>
+              </div>
+            </div>
+
+            {/* Statistik Sorotan Profil */}
             <div className="profile-highlights">
+<<<<<<< HEAD
               <div className="highlight-item">
                 <strong>
                   4.9 <Icon icon="lucide:star" width="14" height="14" style={{ verticalAlign: 'middle', color: '#f59e0b' }} />
                 </strong>
                 <small>Rating Mitra</small>
+=======
+              <div className="profile-highlight-item">
+                <strong>4.9 ★</strong>
+                <span>Rating</span>
+>>>>>>> 94c6bc9 (feat: implement account info and wallet)
               </div>
-              <div className="highlight-separator" />
-              <div className="highlight-item">
+
+              <div className="profile-highlight-divider" />
+
+              <div className="profile-highlight-item">
                 <strong>12</strong>
-                <small>Quest Selesai</small>
+                <span>Quest Selesai</span>
               </div>
-              <div className="highlight-separator" />
-              <div className="highlight-item">
+
+              <div className="profile-highlight-divider" />
+
+              <div className="profile-highlight-item">
                 <strong>100%</strong>
-                <small>Tepat Waktu</small>
+                <span>Respons</span>
               </div>
             </div>
           </section>
 
+          {/* Saldo dan riwayat transaksi dari data Dompet */}
           <div className="wallet-wrapper">
+<<<<<<< HEAD
             <div className="section-head">
               <h2>
                 <Icon icon="lucide:wallet" width="18" height="18" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
@@ -77,18 +113,29 @@ export default function ProfilPage() {
               </div>
               <span className="online">● Aktif</span>
             </section>
+=======
+>>>>>>> 94c6bc9 (feat: implement account info and wallet)
             <DompetPage />
           </div>
         </div>
 
-        {/* Kolom Kanan: Akun & Pengaturan Kampus */}
+        {/* Kolom kanan: Akun dan pengaturan */}
         <div className="profil-right-column">
           <AkunPage />
 
+          {/* Pengaturan & Bantuan Kampus */}
           <section className="panel campus-settings-card">
-            <h3>Pengaturan & Bantuan Kampus</h3>
+            <div className="campus-settings-header">
+              <span className="campus-settings-eyebrow">INFORMASI & BANTUAN</span>
+              <h2>Pengaturan Kampus</h2>
+              <p>
+                Pusat informasi kampus UNTAN, panduan keamanan transaksi, dan integrasi akademik.
+              </p>
+            </div>
+
             <div className="settings-list-grid">
               <div className="settings-list-item">
+<<<<<<< HEAD
                 <span className="setting-icon">
                   <Icon icon="lucide:calendar" width="22" height="22" />
                 </span>
@@ -101,18 +148,30 @@ export default function ProfilPage() {
                 <span className="setting-icon">
                   <Icon icon="lucide:map-pin" width="22" height="22" />
                 </span>
+=======
+                <span className="setting-icon">📍</span>
+>>>>>>> 94c6bc9 (feat: implement account info and wallet)
                 <div className="setting-text">
                   <strong>Lokasi Utama Kampus</strong>
                   <p>Kampus Utama UNTAN, Jl. Prof. Dr. H. Hadari Nawawi, Pontianak.</p>
                 </div>
               </div>
+
               <div className="settings-list-item">
                 <span className="setting-icon">
                   <Icon icon="lucide:shield-check" width="22" height="22" />
                 </span>
                 <div className="setting-text">
                   <strong>Pusat Bantuan & Keamanan</strong>
-                  <p>Panduan etika quest, keamanan transaksi, dan pelaporan kendala.</p>
+                  <p>Panduan etika quest, keamanan transaksi mahasiswa, dan pelaporan kendala.</p>
+                </div>
+              </div>
+
+              <div className="settings-list-item">
+                <span className="setting-icon">📅</span>
+                <div className="setting-text">
+                  <strong>Jadwal Kuliah (Siakad)</strong>
+                  <p>Sinkronisasi jadwal otomatis dengan portal Siakad UNTAN (segera hadir).</p>
                 </div>
               </div>
             </div>

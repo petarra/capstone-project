@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ============================================================
    KAMPUSGIG - MODUL AKUN & PROFIL (akun.css)
    Fitur: Autentikasi (Login & Registrasi), Dropdown Akun Navbar,
@@ -1408,4 +1409,382 @@
 .button.button-outline-danger:active:not(:disabled),
 .button-outline-danger:active:not(:disabled) {
   opacity: 0.75;
+=======
+
+/* =========================================
+   KAMPUSGIG — ACCOUNT INFO
+   ========================================= */
+
+.akun-panel {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 26px;
+  border: 1px solid #e7eef2;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #243746;
+  box-shadow: 0 8px 28px rgba(29, 71, 91, 0.06);
+}
+
+/* Header */
+
+.akun-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.akun-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #289cbe;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.akun-heading h2 {
+  margin: 0 0 8px;
+  color: #193746;
+  font-family: 'Poppins', sans-serif;
+  font-size: 23px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.akun-heading p {
+  margin: 0;
+  color: #7b8b97;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Status akun */
+
+.akun-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid #c8f0e6;
+  border-radius: 30px;
+  background: #eafaf5;
+  color: #168b78;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.akun-status::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2fc4b2;
+  content: "";
+}
+
+/* Informasi profil */
+
+.akun-info-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.akun-info-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  padding: 17px;
+  border: 1px solid #e6eef2;
+  border-radius: 14px;
+  background: #f9fcfd;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.akun-info-item:hover {
+  transform: translateY(-2px);
+  border-color: #b9e5ed;
+  background: #f4fbfd;
+}
+
+.akun-info-item span {
+  color: #81919c;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.akun-info-item strong {
+  overflow-wrap: anywhere;
+  color: #243f4d;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* Form masuk dan daftar */
+
+.akun-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
+  margin-bottom: 24px;
+  border: 1px solid #edf2f5;
+  border-radius: 13px;
+  background: #f4f8fa;
+}
+
+.akun-mode-switch button {
+  min-height: 43px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #728591;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.akun-mode-switch button:hover {
+  color: #289cbe;
+}
+
+.akun-mode-switch button.active {
+  background: #ffffff;
+  color: #218eae;
+  box-shadow: 0 2px 8px rgba(27, 69, 87, 0.09);
+}
+
+/* Susunan form */
+
+.akun-form {
+  display: grid;
+  gap: 19px;
+}
+
+.akun-form label {
+  display: grid;
+  gap: 9px;
+  color: #405461;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.akun-form input,
+.akun-form select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #dce6eb;
+  border-radius: 11px;
+  outline: none;
+  background: #ffffff;
+  color: #243746;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.akun-form input::placeholder {
+  color: #a3b0b9;
+}
+
+.akun-form input:hover,
+.akun-form select:hover {
+  border-color: #b7d9e2;
+}
+
+.akun-form input:focus,
+.akun-form select:focus {
+  border-color: #289cbe;
+  box-shadow: 0 0 0 4px rgba(40, 156, 190, 0.11);
+}
+
+/* Tombol utama */
+
+.akun-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(120deg, #289cbe, #2fc4b2);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 5px 13px rgba(40, 156, 190, 0.16);
+  transition:
+    box-shadow 0.2s ease,
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.akun-button:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.08);
+  box-shadow: 0 8px 18px rgba(40, 156, 190, 0.23);
+}
+
+.akun-button:active {
+  transform: translateY(0);
+}
+
+.akun-button:focus-visible,
+.akun-mode-switch button:focus-visible {
+  outline: 3px solid rgba(40, 156, 190, 0.3);
+  outline-offset: 3px;
+}
+
+/* Tombol keluar */
+
+.akun-button-danger {
+  margin-top: 21px;
+  border: 1px solid #f4d9dc;
+  background: #fff5f5;
+  color: #c44755;
+  box-shadow: none;
+}
+
+.akun-button-danger:hover {
+  border-color: #efc1c7;
+  background: #ffeded;
+  box-shadow: none;
+}
+
+.akun-button-help {
+  margin-top: 10px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.akun-button-help:hover {
+  transform: none;
+  filter: none;
+  box-shadow: none;
+  border-color: #94a3b8;
+  color: #475569;
+}
+
+/* Pesan dan keterangan demo */
+
+.akun-message {
+  padding: 12px 14px;
+  margin: 15px 0 0;
+  border: 1px solid #c8f0e6;
+  border-radius: 10px;
+  background: #effbf7;
+  color: #168b78;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.akun-demo-note {
+  padding-top: 15px;
+  margin: 17px 0 0;
+  border-top: 1px solid #edf2f5;
+  color: #84939d;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+  .akun-panel {
+    padding: 22px;
+    border-radius: 17px;
+  }
+
+  .akun-heading h2 {
+    font-size: 21px;
+  }
+
+  .akun-info-item {
+    padding: 14px;
+  }
+}
+
+/* Ponsel */
+
+@media (max-width: 480px) {
+  .akun-panel {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .akun-heading {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .akun-heading h2 {
+    font-size: 19px;
+  }
+
+  .akun-heading p {
+    font-size: 12px;
+  }
+
+  .akun-status {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .akun-info-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .akun-info-item {
+    padding: 13px 14px;
+  }
+
+  .akun-form {
+    gap: 16px;
+  }
+
+  .akun-mode-switch {
+    margin-bottom: 20px;
+  }
+}
+
+/* Menghormati preferensi gerakan pengguna */
+
+@media (prefers-reduced-motion: reduce) {
+  .akun-info-item,
+  .akun-button,
+  .akun-mode-switch button {
+    transition: none;
+  }
+
+  .akun-info-item:hover,
+  .akun-button:hover {
+    transform: none;
+  }
+>>>>>>> 94c6bc9 (feat: implement account info and wallet)
 }
