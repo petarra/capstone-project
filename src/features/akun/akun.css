@@ -1,1 +1,1411 @@
-/* Anggota 1: awali class dengan .akun- agar CSS tidak berbenturan. */
+/* ============================================================
+   KAMPUSGIG - MODUL AKUN & PROFIL (akun.css)
+   Fitur: Autentikasi (Login & Registrasi), Dropdown Akun Navbar,
+          Modal Konfirmasi Logout, dan Halaman Profil & Pengaturan
+   ------------------------------------------------------------
+   Dokumentasi & Panduan Style:
+  - Warna utama mengikuti token global di index.css
+  - Warna netral: surface putih, latar hijau pucat, teks hijau tua
+   - Font: 'Poppins' untuk judul (h1, h2), 'Inter' untuk teks & input
+   ============================================================ */
+
+/* ============================================================
+   BAGIAN 1: AUTHENTICATION (LOGIN & REGISTRATION PAGE)
+   Layout split-card terinspirasi mockup desain modern
+   ============================================================ */
+
+/* Shell Khusus Halaman Auth (Menghilangkan padding default app) */
+.app-shell.auth-mode {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.app-main.auth-main {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  min-height: 100vh;
+}
+
+.auth-responsive-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Wrapper Utama Layar Login (Full Viewport Centered) */
+.login-screen-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: radial-gradient(circle at 50% 20%, var(--pr-light) 0%, var(--pr) 58%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efek Ambient Glow Halus di Latar Belakang */
+.login-backdrop-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 135, 122, 0.12) 0%, rgba(0, 135, 122, 0.04) 50%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  top: -150px;
+  right: -100px;
+  z-index: 0;
+}
+
+/* Kartu Utama Split-Card (2 Kolom: Banner Kiri + Form Kanan) */
+.login-split-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  max-width: 980px;
+  min-height: 580px;
+  background: var(--surface);
+  border: 3px solid var(--pr-border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  padding: 14px;
+  gap: 14px;
+}
+
+/* ------------------------------------------------------------
+   1.1 PANEL VISUAL KIRI (BANNER GAMBAR & TAGLINE MOTIVASI)
+   ------------------------------------------------------------ */
+.login-visual-panel {
+  flex: 1 1 46%;
+  min-height: 520px;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--pr-darker);
+}
+
+/* Gambar Mahasiswa Kampus UNTAN dengan object-fit: cover */
+.login-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.login-visual-panel:hover .login-banner-image {
+  transform: scale(1.02);
+}
+
+/* Gradient Gelap di Atas Gambar untuk Menjaga Keterbacaan Teks */
+.login-visual-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 27, 34, 0.5) 0%,
+    rgba(10, 27, 34, 0.15) 35%,
+    rgba(10, 27, 34, 0.8) 75%,
+    rgba(9, 23, 29, 0.98) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Header di dalam Banner Visual (Logo Brand & Tombol Akses Cepat) */
+.login-visual-top-bar {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-visual-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.visual-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--pr) 0%, var(--pr-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 135, 122, 0.25);
+}
+
+.visual-logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.login-ghost-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 9999px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-ghost-link:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateX(2px);
+}
+
+/* Teks Headline & Indikator Carousel di Bawah Banner */
+.login-visual-bottom {
+  position: absolute;
+  bottom: 24px;
+  left: 22px;
+  right: 22px;
+  z-index: 2;
+}
+
+.login-visual-headline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.login-visual-subtext {
+  font-size: 13px;
+  color: #e6f6f2;
+  line-height: 1.45;
+  margin: 0 0 16px 0;
+}
+
+.login-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot-bar {
+  display: inline-block;
+  height: 3px;
+  width: 18px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.dot-bar.active {
+  width: 32px;
+  background: var(--pr);
+  box-shadow: 0 0 8px rgba(0, 135, 122, 0.5);
+}
+
+/* ------------------------------------------------------------
+   1.2 PANEL FORMULIR KANAN (INPUT LOGIN & REGISTRASI)
+   ------------------------------------------------------------ */
+.login-form-panel {
+  flex: 1 1 54%;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form-header {
+  margin-bottom: 22px;
+}
+
+.login-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.login-toggle-link {
+  background: none;
+  border: none;
+  color: var(--pr);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  transition: color 0.15s ease;
+}
+
+.login-toggle-link:hover {
+  color: var(--pr-dark);
+}
+
+.login-alert-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.login-alert-box.error {
+  background: #fff1f0;
+  border: 1px solid #ffd1cc;
+  color: #b42318;
+}
+
+.login-actual-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.field-input-wrapper:focus-within {
+  border-color: var(--pr);
+  box-shadow: 0 0 0 3px rgba(0, 135, 122, 0.14);
+  background: var(--surface);
+}
+
+.field-prefix-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  padding-right: 4px;
+  color: var(--muted);
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.field-input-wrapper:focus-within .field-prefix-icon {
+  color: var(--pr);
+}
+
+.login-text-input {
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 12px 0 8px;
+  font-size: 14px;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.login-text-input:focus,
+.login-text-input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.login-text-input::placeholder {
+  color: var(--muted-light);
+}
+
+.login-text-input.has-suffix {
+  padding-right: 42px;
+}
+
+/* Custom Dropdown Role Selector */
+.login-select-input {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 36px;
+  color: var(--text);
+}
+
+.login-select-input option {
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-arrow-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* Phone Input dengan Country Selector pada Login/Register */
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.country-code-select-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-right: 1px solid var(--border);
+  background: var(--surface-alt);
+  padding: 0 4px 0 10px;
+  flex-shrink: 0;
+}
+
+.country-code-select {
+  height: 44px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 13.5px;
+  cursor: pointer;
+  padding-right: 4px;
+  font-family: inherit;
+}
+
+.country-code-select option {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.login-phone-input {
+  flex: 1;
+  padding-left: 12px !important;
+}
+
+/* Tombol Mata Interaktif (Password Eye Toggle) */
+.field-eye-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.field-eye-button:hover {
+  color: var(--pr);
+  background: var(--pr-light);
+}
+
+.form-extra-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.checkbox-custom-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox-input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--pr);
+  cursor: pointer;
+}
+
+.checkbox-text {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.terms-link-text {
+  color: var(--pr);
+  text-decoration: underline;
+}
+
+.forgot-password-link {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.forgot-password-link:hover {
+  color: var(--pr);
+  text-decoration: underline;
+}
+
+/* Tombol Submit Primer dengan Gradien Brand */
+.login-primary-submit-btn {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--pr) 0%, var(--pr-dark) 100%);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 135, 122, 0.24);
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.login-primary-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 135, 122, 0.3);
+  background: linear-gradient(135deg, var(--pr-dark) 0%, var(--pr-darker) 100%);
+}
+
+.login-primary-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.spin-animation {
+  animation: spinSlow 1s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Opsi Akses Cepat Akun Demo */
+.login-quick-demo-container {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-demo-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.quick-demo-buttons-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quick-demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--pr-light);
+  border: 1px solid var(--pr-border);
+  border-radius: 9999px;
+  color: var(--pr-dark);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-demo-chip:hover {
+  background: rgba(0, 135, 122, 0.12);
+  border-color: var(--pr);
+  color: var(--pr-darker);
+}
+
+/* Responsif Mobile & Layar Kecil untuk Login Card */
+@media (max-width: 860px) {
+  .login-split-card {
+    flex-direction: column;
+    max-width: 520px;
+    padding: 10px;
+    min-height: auto;
+  }
+
+  .login-visual-panel {
+    min-height: 220px;
+    height: 220px;
+    flex: none;
+  }
+
+  .login-visual-headline {
+    font-size: 18px;
+  }
+
+  .login-visual-subtext {
+    display: none;
+  }
+
+  .login-form-panel {
+    padding: 24px 18px;
+  }
+
+  .login-title {
+    font-size: 24px;
+  }
+}
+
+
+/* ============================================================
+   BAGIAN 2: NAVBAR AKUN (DROPDOWN PROFIL & MODAL LOGOUT)
+   ============================================================ */
+
+/* Wadah Dropdown Profil pada Desktop Header */
+.profile-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.desktop-user-pill.interactive {
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  background: var(--surface-alt, #eef7f9);
+}
+
+.desktop-user-pill.interactive:hover,
+.desktop-user-pill.interactive.active {
+  background: #ffffff;
+  border-color: var(--pr-border, #b5e3ed);
+  box-shadow: 0 2px 8px rgba(14, 42, 51, 0.06);
+}
+
+.user-pill-chevron {
+  color: var(--muted, #4e6f77);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-left: 2px;
+}
+
+.user-pill-chevron.rotated {
+  transform: rotate(180deg);
+  color: var(--pr, #289CBE);
+}
+
+/* Dropdown Menu Mengambang (Pop Menu Kecil) */
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  background: #ffffff;
+  border: 1px solid var(--border, #d4e8ec);
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(14, 42, 51, 0.16), 0 2px 6px rgba(14, 42, 51, 0.05);
+  padding: 8px;
+  z-index: 1000;
+  animation: dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top right;
+}
+
+@keyframes dropdownPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dropdown-user-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 12px 10px;
+}
+
+.dropdown-user-header .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--teal-border, #a8ece3);
+  flex-shrink: 0;
+}
+
+.dropdown-user-meta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dropdown-user-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text, #0e2a33);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-user-role-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pr-dark, #1e7d99);
+  background: var(--pr-light, #eaf6f9);
+  padding: 1px 7px;
+  border-radius: 4px;
+  width: fit-content;
+  margin: 2px 0;
+}
+
+.dropdown-user-email {
+  font-size: 11.5px;
+  color: var(--muted, #4e6f77);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border, #d4e8ec);
+  margin: 4px 0;
+}
+
+/* Item Menu Interaktif (Edit Profil & Keluar) */
+.dropdown-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text, #0e2a33);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.dropdown-menu-item:hover {
+  background: var(--surface-alt, #eef7f9);
+  color: var(--pr, #289CBE);
+}
+
+.dropdown-item-icon {
+  color: var(--muted, #4e6f77);
+  transition: color 0.15s ease;
+}
+
+.dropdown-menu-item:hover .dropdown-item-icon {
+  color: var(--pr, #289CBE);
+}
+
+.dropdown-menu-item.item-logout {
+  color: #b91c1c;
+}
+
+.dropdown-menu-item.item-logout .danger-icon {
+  color: #ef4444;
+}
+
+.dropdown-menu-item.item-logout:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ------------------------------------------------------------
+   2.1 MODAL KONFIRMASI LOGOUT ("Yakin ingin keluar?")
+   ------------------------------------------------------------ */
+.logout-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 42, 51, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.logout-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 24px 50px rgba(14, 42, 51, 0.25);
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.logout-modal-icon-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.logout-modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text, #0e2a33);
+  margin: 0 0 8px 0;
+}
+
+.logout-modal-desc {
+  font-size: 13.5px;
+  color: var(--muted, #4e6f77);
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.logout-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.logout-cancel-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #d4e8ec);
+  background: var(--surface-alt, #eef7f9);
+  color: var(--text, #0e2a33);
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-cancel-btn:hover {
+  background: #e2eff2;
+}
+
+.logout-confirm-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  transition: all 0.2s ease;
+}
+
+.logout-confirm-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   BAGIAN 3: HALAMAN PROFIL & EDIT PROFIL (ProfilPage & AkunPage)
+   ============================================================ */
+
+.profil-page-layout {
+  width: 100%;
+}
+
+/* Responsif Grid Dashboard Profil */
+.profil-dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .profil-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profil-dashboard-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+}
+
+/* Kartu Ringkasan Profil Utama */
+.profile-card {
+  text-align: center;
+  padding: 28px 24px;
+}
+
+.avatar-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.verified-chip {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--pr-teal, #2FC4B2);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.profile-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 4px;
+  color: var(--text, #0e2a33);
+}
+
+.nim-text {
+  font-size: 12px;
+  color: var(--muted, #4e6f77);
+  margin-bottom: 10px;
+}
+
+.verified-tag {
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-highlights {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--surface-alt, #eef7f9);
+  border: 1px solid var(--border, #d4e8ec);
+  border-radius: 12px;
+  padding: 14px 10px;
+  margin-top: 14px;
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.highlight-item strong {
+  font-size: 16px;
+  color: var(--pr, #289CBE);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.highlight-item small {
+  font-size: 10px;
+  color: var(--muted, #4e6f77);
+}
+
+.highlight-separator {
+  width: 1px;
+  height: 24px;
+  background: var(--border, #d4e8ec);
+}
+
+.wallet-saldo-card {
+  margin-bottom: 16px;
+}
+
+/* Pengaturan & Bantuan Kampus */
+.campus-settings-card {
+  padding: 24px;
+}
+
+.campus-settings-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  color: var(--pr, #289CBE);
+}
+
+.settings-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.settings-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--surface-alt, #eef7f9);
+  border: 1px solid var(--border, #d4e8ec);
+  border-radius: 12px;
+}
+
+.setting-icon {
+  font-size: 22px;
+  color: var(--pr, #289CBE);
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+}
+
+.setting-text strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text, #0e2a33);
+  margin-bottom: 2px;
+}
+
+.setting-text p {
+  font-size: 11px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------
+   3.1 FORMULIR EDIT PROFIL & AKUN (AkunPage.jsx)
+   ------------------------------------------------------------ */
+.account-edit-card {
+  margin-bottom: 20px;
+}
+
+.account-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.role-chip-indicator {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pr-dark, #1e7d99);
+  background: var(--pr-light, #eaf6f9);
+  border: 1px solid var(--pr-border, #b5e3ed);
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.save-success-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.account-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .account-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Upload Foto Profil di Form Edit */
+.edit-avatar-group {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+}
+
+.edit-avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  background: var(--surface-alt, #f4fafb);
+  border: 1px dashed var(--border, #d4e8ec);
+  border-radius: 12px;
+}
+
+.avatar-preview-box {
+  flex-shrink: 0;
+}
+
+.edit-avatar-preview {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(40, 156, 190, 0.15);
+}
+
+.avatar-upload-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.avatar-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button.button-outline-upload,
+.button-outline-upload {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #ffffff !important;
+  color: var(--pr, #289CBE) !important;
+  border: 1.5px solid var(--pr-border, #b5e3ed) !important;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.25s ease-in-out,
+              background-color 0.25s ease-in-out,
+              border-color 0.25s ease-in-out,
+              box-shadow 0.25s ease-in-out,
+              color 0.25s ease-in-out;
+  width: fit-content;
+}
+
+.button.button-outline-upload:hover:not(:disabled),
+.button-outline-upload:hover:not(:disabled) {
+  opacity: 0.88;
+  background: var(--pr-light, #eaf6f9) !important;
+  border-color: var(--pr, #289CBE) !important;
+  color: var(--pr-dark, #1e7d99) !important;
+  box-shadow: 0 4px 12px rgba(40, 156, 190, 0.22);
+}
+
+.button.button-outline-upload:active:not(:disabled),
+.button-outline-upload:active:not(:disabled) {
+  opacity: 0.75;
+}
+
+.button-ghost-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  color: #dc2626 !important;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 6px;
+  transition: opacity 0.25s ease-in-out, background-color 0.2s ease;
+}
+
+.button-ghost-danger:hover {
+  opacity: 0.88;
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
+.avatar-help-text {
+  font-size: 11.5px;
+  color: var(--muted, #7c9aa1);
+  margin: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text, #0e2a33);
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--muted, #4e6f77);
+  pointer-events: none;
+}
+
+.text-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px 0 38px;
+  border: 1px solid var(--border, #d4e8ec);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 13.5px;
+  color: var(--text, #0e2a33);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: var(--pr, #289CBE);
+  box-shadow: 0 0 0 3px rgba(40, 156, 190, 0.15);
+  outline: none;
+}
+
+.select-container select {
+  cursor: pointer;
+}
+
+/* Phone Input dengan Country Selector pada Form Profil */
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border, #d4e8ec);
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.phone-input-container:focus-within {
+  border-color: var(--pr, #289CBE);
+  box-shadow: 0 0 0 3px rgba(40, 156, 190, 0.15);
+}
+
+.country-code-picker {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border, #d4e8ec);
+  background: var(--surface-alt, #f4fafb);
+  padding: 0 8px 0 10px;
+  flex-shrink: 0;
+}
+
+.profile-country-select {
+  height: 42px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text, #0e2a33);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.profile-country-select option {
+  background: #ffffff;
+  color: #0e2a33;
+}
+
+.phone-text-input {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 12px !important;
+  height: 42px;
+  flex: 1;
+}
+
+.account-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Tombol Simpan Perubahan (Sesuai Guideline: Gradient Teal, Fade in/Out) */
+.button.button-primary,
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #289CBE 0%, #2FC4B2 100%);
+  color: #ffffff !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.25s ease-in-out,
+              box-shadow 0.25s ease-in-out,
+              transform 0.15s ease-in-out;
+}
+
+.button.button-primary:hover:not(:disabled),
+.button-primary:hover:not(:disabled),
+.button.button-primary:active,
+.button-primary:active,
+.button.button-primary:disabled,
+.button-primary:disabled {
+  opacity: 0.88;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(40, 156, 190, 0.35);
+  background: linear-gradient(135deg, #248ea8 0%, #28b09f 100%) !important;
+}
+
+.button.button-primary:disabled,
+.button-primary:disabled {
+  cursor: not-allowed;
+}
+
+/* Tombol Logout (Tema Merah: Outline merah, Dalamnya putih, Efek Hover Fade Sesuai Guideline) */
+.button.button-outline-danger,
+.button-outline-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #ffffff !important;
+  color: #dc2626 !important;
+  border: 1.5px solid #dc2626 !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.25s ease-in-out,
+              background-color 0.25s ease-in-out,
+              border-color 0.25s ease-in-out,
+              box-shadow 0.25s ease-in-out,
+              color 0.25s ease-in-out;
+}
+
+.button.button-outline-danger:hover:not(:disabled),
+.button-outline-danger:hover:not(:disabled) {
+  opacity: 0.88;
+  background: #fef2f2 !important;
+  border-color: #b91c1c !important;
+  color: #dc2626 !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.22);
+}
+
+.button.button-outline-danger:active:not(:disabled),
+.button-outline-danger:active:not(:disabled) {
+  opacity: 0.75;
+}
