@@ -21,7 +21,7 @@ Belum: login/daftar, pemilihan peran, pencarian/filter/detail, pembuatan dan pem
 | 1 | src/features/akun | Masuk, daftar, profil, peran, logout simulasi |
 | 2 | src/features/eksplorasi | Daftar, pencarian, kategori, detail quest |
 | 3 | src/features/pesanan | Form buat quest, pesanan saya, pembatalan |
-| 4 (kamu) | src/features/pekerjaan | Ambil quest, pekerjaan aktif, progres, riwayat selesai |
+| 4 | src/features/pekerjaan | Ambil quest, pekerjaan aktif, progres, riwayat selesai |
 | 5 | src/features/chat | Daftar percakapan dan pesan simulasi per quest |
 | 6 | src/features/dompet | Saldo, transaksi, top up/penarikan simulasi |
 

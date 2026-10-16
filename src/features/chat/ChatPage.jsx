@@ -25,11 +25,11 @@ function formatTanggal(value) {
     });
 }
 
-export default function ChatPage() {
+export default function ChatPage({ initialQuestId = '', onClose }) {
     const { user, quests } = useApp();
 
     const [messages, setMessages] = useState(readMessages);
-    const [selectedId, setSelectedId] = useState('');
+    const [selectedId, setSelectedId] = useState(initialQuestId || '');
     const [search, setSearch] = useState('');
     const [draft, setDraft] = useState('');
     const [error, setError] = useState('');
@@ -49,7 +49,7 @@ export default function ChatPage() {
 
     const questAktif = percakapan.find(
         (quest) => quest.id === selectedId
-    );
+    ) || (quests || []).find((quest) => quest.id === selectedId);
 
     const pesanAktif = questAktif
         ? messages.filter(
@@ -58,7 +58,8 @@ export default function ChatPage() {
                 [
                     questAktif.clientId,
                     questAktif.workerId,
-                ].includes(message.senderId)
+                    questAktif.requestedWorkerId,
+                ].filter(Boolean).includes(message.senderId)
         )
         : [];
 
@@ -68,11 +69,11 @@ export default function ChatPage() {
 
     // Bersihkan pilihan ketika berganti akun.
     useEffect(() => {
-        setSelectedId('');
+        setSelectedId(initialQuestId || '');
         setDraft('');
         setSearch('');
         setError('');
-    }, [user?.id]);
+    }, [user?.id, initialQuestId]);
 
     // Ambil perubahan pesan dari tab browser lain pada origin yang sama.
     useEffect(() => {
@@ -125,9 +126,16 @@ export default function ChatPage() {
             return pesanPengguna.senderName;
         }
 
-        return id === questAktif?.clientId
-            ? 'Pemesan'
-            : 'Pekerja';
+        if (id === questAktif?.clientId) {
+            return questAktif?.clientName || 'Pemesan';
+        }
+
+        if (id === (questAktif?.workerId || questAktif?.requestedWorkerId)) {
+            const foundWorker = demoWorkers.find((w) => w.id === id);
+            if (foundWorker) return foundWorker.name;
+        }
+
+        return 'Mitra Quest';
     }
 
     function bukaPercakapan(quest) {
@@ -212,7 +220,7 @@ export default function ChatPage() {
 
     const lawanBicaraId = questAktif
         ? questAktif.clientId === user.id
-            ? questAktif.workerId
+            ? (questAktif.workerId || questAktif.requestedWorkerId)
             : questAktif.clientId
         : null;
 

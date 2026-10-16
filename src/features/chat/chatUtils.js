@@ -1,13 +1,10 @@
 export const CHAT_KEY = 'kampusgig-chat-v1';
 
 export function canChat(quest, userId) {
-    return Boolean(
-        userId &&
-        quest.clientId &&
-        quest.workerId &&
-        quest.clientId !== quest.workerId &&
-        [quest.clientId, quest.workerId].includes(userId)
-    );
+    if (!userId || !quest || !quest.clientId) return false;
+    const workerId = quest.workerId || quest.requestedWorkerId;
+    if (!workerId) return false;
+    return quest.clientId === userId || workerId === userId;
 }
 
 export function isClosed(quest) {
