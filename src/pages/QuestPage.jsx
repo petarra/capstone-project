@@ -74,6 +74,8 @@ export default function QuestPage() {
       </div>
 
       {/* Konten Tab Aktif */}
+
+      {/* Konten Tab Aktif */}
       <div className="quest-tab-content">
         {tab === 'open' ? (
           <EksplorasiPage />
@@ -81,8 +83,14 @@ export default function QuestPage() {
           <PekerjaanPage />
         ) : (
           <div className="order-page-wrap">
-            <h2>{tab === 'order' ? 'Buat pesanan' : 'Daftar pesanan Anda'}</h2>
-            <PesananPage mode={tab === 'order' ? 'create' : 'mine'} />
+            <h2>
+              {tab === 'order' ? 'Buat pesanan' : 'Daftar pesanan Anda'}
+            </h2>
+
+            <PesananPage
+              mode={tab === 'order' ? 'create' : 'mine'}
+              onViewOrders={() => setTab('mine')}
+            />
           </div>
         )}
       </div>

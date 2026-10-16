@@ -23,13 +23,13 @@ const initialForm = {
     tip: '0',
 };
 
-export default function PesananPage({ mode = 'create' }) {
+export default function PesananPage({ mode = 'create', onViewOrders }) {
     const { user, quests, setQuests } = useApp();
 
     const [form, setForm] = useState(initialForm);
     const [deleteId, setDeleteId] = useState(null);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     // Mengambil nilai angka dari form
     const distanceKm = Number(form.distanceKm) || 0;
@@ -40,7 +40,7 @@ export default function PesananPage({ mode = 'create' }) {
     const serviceFee = Number(form.serviceFee) || 0;
     const tip = Number(form.tip) || 0;
 
-    // Menghitung biaya 
+    // Menghitung biaya
     const pay = serviceFee;
     const deliveryFee = distanceKm * ONGKIR_PER_KM;
 
@@ -59,13 +59,11 @@ export default function PesananPage({ mode = 'create' }) {
         }));
 
         setError('');
-        setSuccess('');
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setError('');
-        setSuccess('');
 
         // Validasi kolom wajib
         if (
@@ -88,18 +86,18 @@ export default function PesananPage({ mode = 'create' }) {
             form.category === 'makanan' &&
             (form.foodPrice === '' ||
                 !Number.isFinite(Number(form.foodPrice)) ||
-                Number(form.foodPrice) <= 0)
+                Number(form.foodPrice) < 500)
         ) {
-            setError('Harga makanan harus lebih dari Rp0.');
+            setError('Harga makanan minimal Rp500.');
             return;
         }
 
         if (
             form.serviceFee === '' ||
             !Number.isFinite(Number(form.serviceFee)) ||
-            Number(form.serviceFee) <= 0
+            Number(form.serviceFee) < 2000
         ) {
-            setError('Biaya jasa mitra harus lebih dari Rp0.');
+            setError('Biaya jasa mitra minimal Rp2.000.');
             return;
         }
 
@@ -137,7 +135,7 @@ export default function PesananPage({ mode = 'create' }) {
         setQuests((prev) => [newQuest, ...prev]);
 
         setForm({ ...initialForm });
-        setSuccess('Quest berhasil dibuat!');
+        setShowSuccessModal(true);
     };
 
     const confirmDelete = () => {
@@ -211,13 +209,16 @@ export default function PesananPage({ mode = 'create' }) {
                                 id="foodPrice"
                                 name="foodPrice"
                                 type="number"
-                                min="1"
+                                min="500"
                                 step="any"
                                 value={form.foodPrice}
                                 onChange={handleChange}
-                                placeholder="Contoh: 10000"
+                                placeholder="Minimal Rp500"
                                 required
                             />
+                            <small>
+                                Harga makanan minimal Rp500.
+                            </small>
                         </div>
                     )}
 
@@ -230,7 +231,7 @@ export default function PesananPage({ mode = 'create' }) {
                             name="serviceFee"
                             type="number"
                             min="2000"
-                            step="500"
+                            step="any"
                             value={form.serviceFee}
                             onChange={handleChange}
                             placeholder="Minimal Rp2.000"
@@ -299,7 +300,7 @@ export default function PesananPage({ mode = 'create' }) {
                             name="tip"
                             type="number"
                             min="0"
-                            step="1000"
+                            step="any"
                             value={form.tip}
                             onChange={handleChange}
                             placeholder="Masukkan 0 jika tidak ada tips"
@@ -339,18 +340,11 @@ export default function PesananPage({ mode = 'create' }) {
                             <strong>Total biaya quest </strong>
                             <strong>{formatRupiah(totalCost)}</strong>
                         </div>
-
                     </div>
 
                     {error && (
                         <p className="pesanan-error" role="alert">
                             {error}
-                        </p>
-                    )}
-
-                    {success && (
-                        <p className="pesanan-success" role="status">
-                            {success}
                         </p>
                     )}
 
@@ -361,6 +355,55 @@ export default function PesananPage({ mode = 'create' }) {
                         + Buat Quest
                     </button>
                 </form>
+
+                {showSuccessModal && (
+                    <div
+                        className="pesanan-overlay"
+                        role="presentation"
+                    >
+                        <section
+                            className="pesanan-dialog"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="pesanan-success-title"
+                            onClick={(event) => event.stopPropagation()}
+                        >
+                            <div className="pesanan-dialog-icon">
+                                ✓
+                            </div>
+
+                            <h3 id="pesanan-success-title">
+                                Pesanan Berhasil Dibuat!
+                            </h3>
+
+                            <p>
+                                Quest kamu berhasil dibuat dan sudah
+                                ditambahkan ke daftar pesanan.
+                            </p>
+
+                            <div className="pesanan-dialog-actions">
+                                <button
+                                    type="button"
+                                    className="pesanan-cancel"
+                                    onClick={() => setShowSuccessModal(false)}
+                                >
+                                    OK
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="pesanan-confirm-delete"
+                                    onClick={() => {
+                                        setShowSuccessModal(false);
+                                        onViewOrders?.();
+                                    }}
+                                >
+                                    Lihat Pesanan Anda
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+                )}
             </section>
         );
     }
