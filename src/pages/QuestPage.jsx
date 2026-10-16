@@ -38,7 +38,7 @@ export default function QuestPage() {
               setTab('order');
             }}
           >
-            📢 Buat Quest (Pemesan)
+            📢 Buat Quest
           </button>
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function QuestPage() {
             className={['open', 'order'].includes(tab) ? 'on' : ''}
             onClick={() => setTab(role === 'worker' ? 'open' : 'order')}
           >
-            {role === 'worker' ? '🔍 Eksplorasi Quest' : '📝 Buat Pesanan Baru'}
+            {role === 'worker' ? '🔍 Eksplorasi Quest' : '📝 Buat Pesanan'}
           </button>
           <button
             type="button"
@@ -81,8 +81,8 @@ export default function QuestPage() {
           <PekerjaanPage />
         ) : (
           <div className="order-page-wrap">
-            <h2>{tab === 'order' ? 'Buat pesanan baru' : 'Daftar pesanan Anda'}</h2>
-            <PesananPage />
+            <h2>{tab === 'order' ? 'Buat pesanan' : 'Daftar pesanan Anda'}</h2>
+            <PesananPage mode={tab === 'order' ? 'create' : 'mine'} />
           </div>
         )}
       </div>
