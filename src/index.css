@@ -510,6 +510,46 @@ p {
 .tag-antar { background: #e0f2fe; color: #0369a1; }
 .tag-kampus { background: #eef2ff; color: #4338ca; }
 
+.quest-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 9px;
+  color: #38675f;
+  background: #edf5f3;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.quest-status-tersedia {
+  color: #176044;
+  background: #eaf8ef;
+}
+
+.quest-status-menunggu-konfirmasi {
+  color: #805b16;
+  background: #fff4d8;
+}
+
+.quest-status-diambil,
+.quest-status-dikerjakan {
+  color: #155f86;
+  background: #e4f4fc;
+}
+
+.quest-status-selesai {
+  color: #176044;
+  background: #eaf8ef;
+}
+
+.quest-status-ditolak,
+.quest-status-dibatalkan {
+  color: #8a3c3c;
+  background: #fcecec;
+}
+
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -1148,6 +1188,22 @@ p {
 
 .quest-page-layout {
   width: 100%;
+}
+
+.quest-preview-worker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.quest-preview-worker select {
+  width: auto;
+  min-width: 190px;
 }
 
 .quest-header-bar {

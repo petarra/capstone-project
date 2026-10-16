@@ -5,10 +5,13 @@ import { useApp } from '../context/AppContext';
 
 export default function HomePage() {
   const { user, quests } = useApp();
+  const availableQuests = quests.filter((quest) => (
+    quest.status === 'tersedia' && quest.visibility !== 'private'
+  ));
   // Nilai input Beranda bersifat lokal agar tidak muncul di kolom Navbar.
   const [homeQuery, setHomeQuery] = useState('');
   const normalizedQuery = homeQuery.trim().toLocaleLowerCase('id-ID');
-  const visibleQuests = quests.filter((quest) => {
+  const visibleQuests = availableQuests.filter((quest) => {
     if (!normalizedQuery) return true;
     const searchableText = [quest.title, quest.category, quest.pickup, quest.destination, quest.status]
       .filter(Boolean)
@@ -104,7 +107,7 @@ export default function HomePage() {
           </div>
 
           <div className="quest-grid" aria-live="polite">
-            {visibleQuests.map((quest) => (
+            {visibleQuests.slice(0, 3).map((quest) => (
               <QuestCard key={quest.id} quest={quest} />
             ))}
           </div>

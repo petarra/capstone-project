@@ -1,1 +1,204 @@
-/* Anggota 4: awali class dengan .pekerjaan- agar CSS tidak berbenturan. */
+.pekerjaan-page {
+  display: grid;
+  gap: 24px;
+}
+
+.pekerjaan-section {
+  min-width: 0;
+}
+
+.pekerjaan-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pekerjaan-heading h3 {
+  margin: 3px 0;
+  color: var(--text);
+  font-size: 17px;
+}
+
+.pekerjaan-heading p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.pekerjaan-count {
+  display: grid;
+  min-width: 32px;
+  height: 32px;
+  place-items: center;
+  color: var(--pr-dark);
+  background: var(--pr-light);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pekerjaan-list {
+  display: grid;
+  gap: 12px;
+}
+
+.pekerjaan-invitation,
+.pekerjaan-active-card {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: var(--shadow-xs);
+}
+
+.pekerjaan-invitation {
+  border-color: #e9d8a9;
+  background: linear-gradient(145deg, #fffefa, #ffffff);
+}
+
+.pekerjaan-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pekerjaan-card-heading h4 {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.pekerjaan-card-heading strong {
+  flex: 0 0 auto;
+  color: var(--pr-dark);
+  font-size: 14px;
+}
+
+.pekerjaan-invitation > p,
+.pekerjaan-active-card > p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.pekerjaan-invitation > small,
+.pekerjaan-active-card > small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.pekerjaan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.pekerjaan-actions .button,
+.pekerjaan-cancel {
+  min-height: 38px;
+}
+
+.pekerjaan-empty {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px;
+  background: white;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+}
+
+.pekerjaan-empty > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  background: var(--surface-alt);
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+.pekerjaan-empty h4 {
+  margin: 0 0 3px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.pekerjaan-empty p {
+  margin: 0;
+  font-size: 11px;
+}
+
+.pekerjaan-cancel {
+  justify-self: start;
+}
+
+.pekerjaan-proof-input {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pekerjaan-proof-panel {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  background: #f5faf9;
+  border: 1px solid var(--pr-border);
+  border-radius: 13px;
+}
+
+.pekerjaan-proof-panel h5 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.pekerjaan-proof-panel > div:first-child p,
+.pekerjaan-proof-filename,
+.pekerjaan-proof-error {
+  margin: 0;
+  font-size: 11px;
+}
+
+.pekerjaan-proof-preview {
+  width: min(100%, 360px);
+  max-height: 260px;
+  object-fit: contain;
+  justify-self: start;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+
+.pekerjaan-proof-filename {
+  color: var(--pr-dark);
+  font-weight: 650;
+}
+
+.pekerjaan-proof-error {
+  padding: 9px 10px;
+  color: #8a3c3c;
+  background: #fcecec;
+  border-radius: 8px;
+}
+
+.pekerjaan-actions .button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .pekerjaan-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 22px;
+  }
+}

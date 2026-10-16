@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { demoWorkers } from '../../data/dummyData';
 import { useApp } from '../../context/AppContext';
 import './pesanan.css';
 
@@ -21,10 +22,11 @@ const initialForm = {
     foodPrice: '',
     serviceFee: '2000',
     tip: '0',
+    requestedWorkerId: '',
 };
 
 export default function PesananPage({ mode = 'create', onViewOrders }) {
-    const { user, quests, setQuests } = useApp();
+    const { user, quests, setQuests, notifications = [], setNotifications } = useApp();
 
     const [form, setForm] = useState(initialForm);
     const [deleteId, setDeleteId] = useState(null);
@@ -111,6 +113,7 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
         }
 
         // Membuat data quest baru
+        const requestedWorker = demoWorkers.find((worker) => worker.id === form.requestedWorkerId);
         const newQuest = {
             id: `q-${Date.now()}`,
             title: form.title.trim(),
@@ -128,11 +131,28 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
             partnerReward,
             clientId: user.id,
             clientName: user.name,
-            status: 'tersedia',
+            clientType: user.role?.toLowerCase().includes('dosen')
+                ? 'dosen'
+                : user.role?.toLowerCase().includes('staff')
+                    ? 'staff'
+                    : 'mahasiswa',
+            requestedWorkerId: requestedWorker?.id || null,
+            visibility: requestedWorker ? 'private' : 'public',
+            status: requestedWorker ? 'menunggu-konfirmasi' : 'tersedia',
             workerId: null,
         };
 
         setQuests((prev) => [newQuest, ...prev]);
+        if (requestedWorker) {
+            setNotifications((prev) => [{
+                id: `notification-${Date.now()}`,
+                recipientId: requestedWorker.id,
+                questId: newQuest.id,
+                type: 'worker_request',
+                read: false,
+                message: `${user.name} mengundangmu untuk mengerjakan "${newQuest.title}".`,
+            }, ...prev]);
+        }
 
         setForm({ ...initialForm });
         setShowSuccessModal(true);
@@ -151,6 +171,28 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
             quest.clientId === user.id ||
             quest.clientId === 'client-demo'
     );
+    const myNotifications = notifications.filter(
+        (notification) => notification.recipientId === user.id && !notification.read,
+    );
+
+    const publishAfterDecline = (questId) => {
+        setQuests((prev) => prev.map((quest) => (
+            quest.id === questId && quest.clientId === user.id && quest.status === 'ditolak'
+                ? {
+                    ...quest,
+                    status: 'tersedia',
+                    visibility: 'public',
+                    requestedWorkerId: null,
+                    declinedWorkerId: null,
+                }
+                : quest
+        )));
+        setNotifications((prev) => prev.map((notification) => (
+            notification.questId === questId && notification.recipientId === user.id
+                ? { ...notification, read: true }
+                : notification
+        )));
+    };
 
     if (mode === 'create') {
         return (
@@ -311,6 +353,26 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                         </small>
                     </div>
 
+                    <div className="pesanan-field pesanan-worker-request">
+                        <label htmlFor="requestedWorkerId">
+                            Undang pekerja tertentu <span>(opsional)</span>
+                        </label>
+                        <select
+                            id="requestedWorkerId"
+                            name="requestedWorkerId"
+                            value={form.requestedWorkerId}
+                            onChange={handleChange}
+                        >
+                            <option value="">Publikasikan untuk semua pekerja</option>
+                            {demoWorkers.map((worker) => (
+                                <option key={worker.id} value={worker.id}>{worker.name}</option>
+                            ))}
+                        </select>
+                        <small>
+                            Jika memilih pekerja, quest hanya terlihat oleh mahasiswa tersebut sampai ia menerima atau menolak.
+                        </small>
+                    </div>
+
                     <div className="pesanan-cost-summary">
                         <h3>Rincian Biaya Quest</h3>
 
@@ -421,6 +483,25 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                     <p>Quest yang kamu buat akan muncul di sini.</p>
                 </div>
             ) : (
+                <>
+                {myNotifications.length > 0 && (
+                    <div className="pesanan-notifications" role="status">
+                        {myNotifications.map((notification) => {
+                            const relatedQuest = quests.find((quest) => quest.id === notification.questId);
+                            return (
+                                <div className="pesanan-notification" key={notification.id}>
+                                    <p>🔔 {notification.message}</p>
+                                    {notification.type === 'quest_completed' && relatedQuest?.completionProof?.dataUrl && (
+                                        <figure className="pesanan-proof">
+                                            <img src={relatedQuest.completionProof.dataUrl} alt={`Bukti penyelesaian ${relatedQuest.title}`} />
+                                            <figcaption>{relatedQuest.completionProof.name || 'Foto bukti penyelesaian'}</figcaption>
+                                        </figure>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
                 <div className="pesanan-grid">
                     {myQuests.map((quest) => {
                         const questTip = Number(quest.tip) || 0;
@@ -473,7 +554,11 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                                     </span>
 
                                     <span className="pesanan-status">
-                                        {quest.status || 'tersedia'}
+                                        {quest.status === 'ditolak'
+                                            ? 'Pekerja menolak'
+                                            : quest.status === 'menunggu-konfirmasi'
+                                                ? 'Menunggu jawaban pekerja'
+                                                : quest.status || 'tersedia'}
                                     </span>
                                 </div>
 
@@ -554,6 +639,26 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                                     </strong>
                                 </div>
 
+                                {quest.status === 'ditolak' && (
+                                    <div className="pesanan-declined-actions">
+                                        <p>Pekerja menolak permintaan ini. Kamu dapat membuka quest untuk semua pekerja.</p>
+                                        <button
+                                            type="button"
+                                            className="pesanan-publish-public"
+                                            onClick={() => publishAfterDecline(quest.id)}
+                                        >
+                                            Jadikan misi publik
+                                        </button>
+                                    </div>
+                                )}
+
+                                {quest.status === 'selesai' && quest.completionProof?.dataUrl && (
+                                    <figure className="pesanan-proof">
+                                        <img src={quest.completionProof.dataUrl} alt={`Bukti penyelesaian ${quest.title}`} />
+                                        <figcaption>Quest selesai · {quest.completionProof.name || 'Foto bukti'}</figcaption>
+                                    </figure>
+                                )}
+
                                 <button
                                     type="button"
                                     className="pesanan-delete"
@@ -565,6 +670,7 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                         );
                     })}
                 </div>
+                </>
             )}
 
             {deleteId !== null && (
