@@ -1,1 +1,453 @@
-/* Anggota 5: awali class dengan .chat- agar CSS tidak berbenturan. */
+.chatf-root {
+    min-width: 0;
+    color: #163d35;
+}
+
+.chatf-root * {
+    box-sizing: border-box;
+}
+
+.chatf-info {
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #eff7f3;
+    color: #607d70;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.chatf-layout {
+    display: grid;
+    grid-template-columns: minmax(180px, 32%) minmax(0, 1fr);
+    height: 490px;
+    max-height: 65dvh;
+    min-height: 280px;
+    overflow: hidden;
+    border: 1px solid #deebe4;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.chatf-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-right: 1px solid #e4ede7;
+}
+
+.chatf-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 14px 12px;
+}
+
+.chatf-sidebar-header h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.chatf-sidebar-header>span {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #e6f5ee;
+    color: #00877a;
+    font-size: 11px;
+}
+
+.chatf-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 10px 12px;
+    padding: 9px;
+    border: 1px solid #e1ebe5;
+    border-radius: 10px;
+    background: #f8faf8;
+}
+
+.chatf-search input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #285144;
+    font: inherit;
+    font-size: 11px;
+}
+
+.chatf-search:focus-within {
+    outline: 2px solid #00877a;
+}
+
+.chatf-thread-list {
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.chatf-thread {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 10px;
+    border: 0;
+    border-bottom: 1px solid #f0f4f1;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.chatf-thread:hover {
+    background: #f2faf5;
+}
+
+.chatf-thread.selected {
+    background: #e9f7f0;
+    box-shadow: inset 3px 0 #00877a;
+}
+
+.chatf-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: #dbefe4;
+    color: #087c65;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.chatf-thread-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.chatf-thread-text strong {
+    display: block;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.chatf-thread-text small {
+    display: block;
+    margin-top: 5px;
+    overflow: hidden;
+    color: #7a9084;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chatf-thread-text em {
+    display: block;
+    margin-top: 6px;
+    color: #00877a;
+    font-size: 9px;
+    font-style: normal;
+}
+
+.chatf-thread-time {
+    color: #8b9e92;
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.chatf-conversation {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: #f6faf7;
+}
+
+.chatf-header {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 14px;
+    border-bottom: 1px solid #e2ece5;
+    background: #fff;
+}
+
+.chatf-header-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.chatf-header-text h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.chatf-header-text p {
+    margin: 0;
+    overflow: hidden;
+    color: #708b7c;
+    font-size: 10px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chatf-status {
+    padding: 5px 8px;
+    border-radius: 20px;
+    background: #edf8f2;
+    color: #00877a;
+    font-size: 9px;
+}
+
+.chatf-route {
+    padding: 9px 14px;
+    border-bottom: 1px solid #e3eee6;
+    background: #edf5ef;
+    color: #6b8675;
+    font-size: 10px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.chatf-messages {
+    flex: 1;
+    min-height: 0;
+    padding: 12px 14px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.chatf-date {
+    margin: 8px 0 17px;
+    color: #7f9384;
+    font-size: 9px;
+    text-align: center;
+}
+
+.chatf-message-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.chatf-message-row.mine {
+    justify-content: flex-end;
+}
+
+.chatf-bubble {
+    max-width: 85%;
+    padding: 10px 12px;
+    border: 1px solid #e2ece5;
+    border-radius: 13px 13px 13px 3px;
+    background: #fff;
+}
+
+.chatf-message-row.mine .chatf-bubble {
+    border-color: #00877a;
+    border-radius: 13px 13px 3px 13px;
+    background: #00877a;
+    color: #fff;
+}
+
+.chatf-bubble p {
+    margin: 0;
+    color: inherit;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.chatf-bubble small {
+    display: block;
+    margin-top: 6px;
+    color: #81968a;
+    font-size: 9px;
+    text-align: right;
+}
+
+.chatf-message-row.mine .chatf-bubble small {
+    color: #c8ece0;
+}
+
+.chatf-composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+    padding: 12px;
+    border-top: 1px solid #e2ece5;
+    background: #fff;
+}
+
+.chatf-input-wrap {
+    flex: 1;
+    min-width: 0;
+    padding: 9px;
+    border: 1px solid #dce9df;
+    border-radius: 12px;
+    background: #f9fbf9;
+}
+
+.chatf-input-wrap:focus-within {
+    outline: 2px solid #00877a;
+}
+
+.chatf-input-wrap textarea {
+    width: 100%;
+    min-height: 34px;
+    max-height: 110px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #224a3a;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.chatf-input-wrap small {
+    display: block;
+    color: #91a396;
+    font-size: 9px;
+    text-align: right;
+}
+
+.chatf-composer>button {
+    padding: 13px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: #00877a;
+    color: #fff;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.chatf-composer>button:disabled {
+    background: #c4d7cb;
+    cursor: not-allowed;
+}
+
+.chatf-empty {
+    padding: 25px 15px;
+    color: #6f8979;
+    text-align: center;
+}
+
+.chatf-empty>span {
+    font-size: 34px;
+}
+
+.chatf-empty h3,
+.chatf-empty h4 {
+    margin: 12px 0;
+    color: #2a5843;
+    font-size: 14px;
+}
+
+.chatf-empty p {
+    max-width: 300px;
+    margin: 0 auto;
+    color: #7d9384;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.chatf-welcome {
+    margin: auto;
+}
+
+.chatf-no-result {
+    padding: 16px;
+    color: #7d9384;
+    font-size: 11px;
+}
+
+.chatf-error {
+    margin: 0;
+    padding: 9px 12px;
+    background: #fff1ed;
+    color: #a53c33;
+    font-size: 11px;
+}
+
+.chatf-closed {
+    padding: 15px;
+    background: #fff8e8;
+    color: #8e7032;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.chatf-back {
+    display: none;
+}
+
+.chatf-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.chatf-root button:focus-visible {
+    outline: 3px solid #edbf62;
+    outline-offset: -3px;
+}
+
+@media (max-width: 650px) {
+    .chatf-layout {
+        grid-template-columns: minmax(0, 1fr);
+        height: 470px;
+        max-height: 62dvh;
+    }
+
+    .chatf-conversation {
+        display: none;
+    }
+
+    .chatf-thread-open .chatf-sidebar {
+        display: none;
+    }
+
+    .chatf-thread-open .chatf-conversation {
+        display: flex;
+    }
+
+    .chatf-sidebar {
+        border: 0;
+    }
+
+    .chatf-back {
+        display: block;
+        padding: 4px 7px;
+        border: 0;
+        background: none;
+        color: #00877a;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .chatf-thread {
+        padding: 16px 12px;
+    }
+
+    .chatf-header {
+        padding: 12px 8px;
+    }
+
+    .chatf-bubble {
+        max-width: 90%;
+    }
+}

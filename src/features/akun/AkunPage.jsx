@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -25,13 +24,11 @@ export default function AkunPage() {
   const { user, updateUser, logout } = useApp();
   const navigate = useNavigate();
 
-  const hasNim = Boolean(user?.nim && user.nim.trim() && user.nim !== '—' && user.nim !== 'NIM contoh');
-
   // Local form state
   const [name, setName] = useState(user?.name || 'Mahasiswa UNTAN');
   const [role, setRole] = useState(user?.role || 'Mahasiswa');
   const [email, setEmail] = useState(user?.email || 'mahasiswa@untan.ac.id');
-  const [nim, setNim] = useState(hasNim ? user.nim : '');
+  const [nim, setNim] = useState(user?.nim || '');
 
   // State nomor telepon & negara
   const [countryCode, setCountryCode] = useState(() => {
@@ -89,7 +86,8 @@ export default function AkunPage() {
           role: role,
           email: email.trim(),
           avatar: avatar || null,
-          ...(hasNim ? { nim: nim.trim() } : { phone: fullPhone, nim: '' }),
+          nim: nim.trim(),
+          phone: fullPhone,
         });
       }
       setIsSaving(false);
@@ -198,6 +196,8 @@ export default function AkunPage() {
               <option value="Mahasiswa">Mahasiswa</option>
               <option value="Dosen">Dosen</option>
               <option value="Staff Kampus">Staff Kampus</option>
+              <option value="worker">Mitra Pekerja (worker)</option>
+              <option value="client">Pemberi Quest (client)</option>
             </select>
           </div>
         </div>
@@ -218,55 +218,53 @@ export default function AkunPage() {
           </div>
         </div>
 
-        {hasNim ? (
-          <div className="form-group">
-            <label htmlFor="edit-nim" className="form-label">
-              {role === 'Mahasiswa' ? 'Nomor Induk Mahasiswa (NIM)' : 'Nomor Induk Pegawai (NIP)'}
-            </label>
-            <div className="input-with-icon">
-              <Icon icon="lucide:id-card" className="input-icon" width="18" height="18" />
-              <input
-                id="edit-nim"
-                type="text"
-                className="text-input"
-                value={nim}
-                onChange={(e) => setNim(e.target.value)}
-                placeholder="Contoh: F1081201045"
-              />
-            </div>
+        <div className="form-group">
+          <label htmlFor="edit-nim" className="form-label">
+            Nomor Induk Mahasiswa (NIM)
+          </label>
+          <div className="input-with-icon">
+            <Icon icon="lucide:id-card" className="input-icon" width="18" height="18" />
+            <input
+              id="edit-nim"
+              type="text"
+              className="text-input"
+              value={nim}
+              onChange={(e) => setNim(e.target.value)}
+              placeholder="Contoh: F1081201045"
+            />
           </div>
-        ) : (
-          <div className="form-group">
-            <label htmlFor="edit-phone" className="form-label">
-              Nomor Telepon
-            </label>
-            <div className="phone-input-container">
-              <div className="country-code-picker">
-                <select
-                  className="profile-country-select"
-                  value={countryCode}
-                  onChange={(e) => setCountryCode(e.target.value)}
-                  aria-label="Pilih Kode Negara"
-                >
-                  {countryCodes.map((c) => (
-                    <option key={c.code} value={c.code}>
-                      {c.flag} {c.code}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <input
-                id="edit-phone"
-                type="tel"
-                inputMode="numeric"
-                className="text-input phone-text-input"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                placeholder="Contoh: 81234567890"
-              />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="edit-phone" className="form-label">
+            Nomor Telepon
+          </label>
+          <div className="phone-input-container">
+            <div className="country-code-picker">
+              <select
+                className="profile-country-select"
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                aria-label="Pilih Kode Negara"
+              >
+                {countryCodes.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.flag} {c.code}
+                  </option>
+                ))}
+              </select>
             </div>
+            <input
+              id="edit-phone"
+              type="tel"
+              inputMode="numeric"
+              className="text-input phone-text-input"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+              placeholder="Contoh: 81234567890"
+            />
           </div>
-        )}
+        </div>
 
         <div className="account-form-actions">
           <button
@@ -322,215 +320,6 @@ export default function AkunPage() {
           </div>
         </div>
       )}
-=======
-
-import React, { useState } from 'react';
-import { useApp } from '../../context/AppContext';
-import './akun.css';
-
-export default function AkunPage() {
-  const { user, setUser } = useApp();
-  const [mode, setMode] = useState('login');
-  const [nama, setNama] = useState('');
-  const [nim, setNim] = useState('');
-  const [role, setRole] = useState('worker');
-  const [pesan, setPesan] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setPesan('');
-
-    if (mode === 'register' && !nama.trim()) {
-      setPesan('Nama lengkap wajib diisi.');
-      return;
-    }
-
-    if (!nim.trim()) {
-      setPesan('NIM wajib diisi.');
-      return;
-    }
-
-    setUser({
-      id: `demo-${Date.now()}`,
-      name: nama.trim() || 'Mahasiswa UNTAN',
-      nim: nim.trim(),
-      role,
-    });
-
-    setPesan(
-      mode === 'register'
-        ? 'Akun demo berhasil dibuat.'
-        : 'Berhasil masuk menggunakan akun demo.'
-    );
-  }
-
-  function handleLogout() {
-    setUser(null);
-    setNama('');
-    setNim('');
-    setRole('worker');
-    setMode('login');
-    setPesan('Kamu sudah keluar dari akun.');
-  }
-
-  if (user) {
-    return (
-      <section className="panel akun-panel">
-        <div className="akun-heading">
-          <div>
-            <span className="akun-eyebrow">ACCOUNT INFO</span>
-            <h2>Informasi Akun</h2>
-            <p>Kelola informasi akun KampusGig kamu.</p>
-          </div>
-          <span className="akun-status">Aktif</span>
-        </div>
-
-        <div className="akun-info-list">
-          <div className="akun-info-item">
-            <span>Nama pengguna</span>
-            <strong>{user.name}</strong>
-          </div>
-          <div className="akun-info-item">
-            <span>NIM</span>
-            <strong>{user.nim}</strong>
-          </div>
-          <div className="akun-info-item">
-            <span>Peran akun</span>
-            <strong>
-              {user.role === 'worker' ? 'Pekerja' : 'Pemesan'}
-            </strong>
-          </div>
-          <div className="akun-info-item">
-            <span>ID akun</span>
-            <strong>{user.id}</strong>
-          </div>
-        </div>
-
-        <p className="akun-demo-note">
-          Ini akun simulasi frontend. Data belum tersimpan ke database.
-        </p>
-
-        
-<button
-  type="button"
-  className="akun-button akun-button-danger"
-  onClick={handleLogout}
->
-  Keluar dari akun
-</button>
-
-<button
-  type="button"
-  className="akun-button akun-button-help"
-  disabled
-  title="Kontak admin belum tersedia"
->
-  Help Us — Segera Hadir
-</button>
-
-      </section>
-    );
-  }
-
-  return (
-    <section className="panel akun-panel">
-      <div className="akun-heading">
-        <div>
-          <span className="akun-eyebrow">ACCOUNT INFO</span>
-          <h2>{mode === 'login' ? 'Selamat Datang!' : 'Buat Akun Demo'}</h2>
-          <p>
-            {mode === 'login'
-              ? 'Masuk untuk melanjutkan ke KampusGig.'
-              : 'Isi informasi berikut untuk mencoba KampusGig.'}
-          </p>
-        </div>
-      </div>
-
-      <div className="akun-mode-switch">
-        <button
-          type="button"
-          className={mode === 'login' ? 'active' : ''}
-          onClick={() => {
-            setMode('login');
-            setPesan('');
-          }}
-        >
-          Masuk
-        </button>
-        <button
-          type="button"
-          className={mode === 'register' ? 'active' : ''}
-          onClick={() => {
-            setMode('register');
-            setPesan('');
-          }}
-        >
-          Daftar
-        </button>
-      </div>
-
-      <form className="akun-form" onSubmit={handleSubmit}>
-        {mode === 'register' && (
-          <label>
-            Nama lengkap
-            <input
-              type="text"
-              value={nama}
-              onChange={(event) => setNama(event.target.value)}
-              placeholder="Masukkan nama lengkap"
-              required
-            />
-          </label>
-        )}
-
-        {mode === 'login' && (
-          <label>
-            Nama pengguna (opsional)
-            <input
-              type="text"
-              value={nama}
-              onChange={(event) => setNama(event.target.value)}
-              placeholder="Mahasiswa UNTAN"
-            />
-          </label>
-        )}
-
-        <label>
-          NIM
-          <input
-            type="text"
-            value={nim}
-            onChange={(event) => setNim(event.target.value)}
-            placeholder="Masukkan NIM"
-            required
-          />
-        </label>
-
-        <label>
-          Peran akun
-          <select
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
-          >
-            <option value="worker">Pekerja</option>
-            <option value="client">Pemesan</option>
-          </select>
-        </label>
-
-        <button type="submit" className="akun-button">
-          {mode === 'login' ? 'Masuk ke KampusGig' : 'Buat Akun Demo'}
-        </button>
-      </form>
-
-      {pesan && (
-        <p className="akun-message" role="status">{pesan}</p>
-      )}
-
-      <p className="akun-demo-note">
-        Akun ini hanya untuk demonstrasi frontend. NIM tidak diverifikasi,
-        dan tidak ada password yang disimpan.
-      </p>
->>>>>>> 94c6bc9 (feat: implement account info and wallet)
     </section>
   );
 }
