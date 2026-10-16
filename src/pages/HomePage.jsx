@@ -4,10 +4,19 @@ import QuestCard from '../components/QuestCard';
 import { useApp } from '../context/AppContext';
 
 export default function HomePage() {
-  const { user, quests } = useApp();
+  const { user, quests, transactions = [] } = useApp();
   const availableQuests = quests.filter((quest) => (
     quest.status === 'tersedia' && quest.visibility !== 'private'
   ));
+
+  const userTransactions = (transactions || []).filter((item) => item.userId === user?.id);
+  const userBalance = userTransactions.reduce((total, item) => total + Number(item.amount || 0), 0);
+  const formattedBalance = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0,
+  }).format(userBalance);
+
   // Nilai input Beranda bersifat lokal agar tidak muncul di kolom Navbar.
   const [homeQuery, setHomeQuery] = useState('');
   const normalizedQuery = homeQuery.trim().toLocaleLowerCase('id-ID');
@@ -119,7 +128,7 @@ export default function HomePage() {
             </div>
           )}
 
-          <p className="starter-note">Kerangka awal · data contoh · fitur bisnis belum dibuat</p>
+          <p className="starter-note">Platform kolaborasi dan peluang cuan mahasiswa Universitas Tanjungpura</p>
         </div>
 
         {/* Kolom Sidebar (Tablet & Desktop) */}
@@ -130,7 +139,7 @@ export default function HomePage() {
               <small>Saldo Kamu</small>
               <span className="online">● Online · demo</span>
             </div>
-            <strong>Rp0</strong>
+            <strong>{formattedBalance}</strong>
             <div className="saldo-footer">
               <Link to="/profil" className="saldo-link-btn">👛 Buka Dompet</Link>
               <small className="saldo-subtext">Akun Mitra UNTAN</small>

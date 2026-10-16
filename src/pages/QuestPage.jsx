@@ -12,6 +12,12 @@ export default function QuestPage() {
   const [previewWorkerId, setPreviewWorkerId] = useState(demoWorkers[0].id);
   const [tab, setTab] = useState('open');
   const [chatOpen, setChatOpen] = useState(false);
+  const [activeChatQuestId, setActiveChatQuestId] = useState('');
+
+  const handleOpenChat = (questId = '') => {
+    setActiveChatQuestId(questId);
+    setChatOpen(true);
+  };
 
   return (
     <div className="quest-page-layout">
@@ -89,20 +95,18 @@ export default function QuestPage() {
         <button
           type="button"
           className="button outline-btn quick-chat-trigger"
-          onClick={() => setChatOpen(true)}
+          onClick={() => handleOpenChat('')}
         >
           💬 Percakapan Quest
         </button>
       </div>
 
       {/* Konten Tab Aktif */}
-
-      {/* Konten Tab Aktif */}
       <div className="quest-tab-content">
         {tab === 'open' ? (
           <EksplorasiPage />
         ) : tab === 'active' ? (
-          <PekerjaanPage />
+          <PekerjaanPage onOpenChat={handleOpenChat} />
         ) : (
           <div className="order-page-wrap">
             <h2>
@@ -112,6 +116,7 @@ export default function QuestPage() {
             <PesananPage
               mode={tab === 'order' ? 'create' : 'mine'}
               onViewOrders={() => setTab('mine')}
+              onOpenChat={handleOpenChat}
             />
           </div>
         )}
@@ -123,10 +128,10 @@ export default function QuestPage() {
           <div className="chat-entry-icon">💬</div>
           <div className="chat-entry-text">
             <h3>Percakapan quest terintegrasi</h3>
-            <p>Nantinya chat dibuka dari pesanan atau pekerjaan terkait untuk koordinasi langsung antar mahasiswa.</p>
+            <p>Koordinasi langsung dengan pemesan atau mitra pekerja pada setiap quest kamu secara real-time.</p>
           </div>
-          <button type="button" className="button" onClick={() => setChatOpen(true)}>
-            Buka Simulasi Chat
+          <button type="button" className="button" onClick={() => handleOpenChat('')}>
+            Buka Semua Percakapan
           </button>
         </div>
       </section>
@@ -144,7 +149,7 @@ export default function QuestPage() {
             <div className="sheet-top-bar">
               <div className="sheet-title-group">
                 <span className="sheet-icon">💬</span>
-                <h3>Simulasi Percakapan Quest</h3>
+                <h3>Percakapan Quest</h3>
               </div>
               <button
                 autoFocus
@@ -157,7 +162,7 @@ export default function QuestPage() {
               </button>
             </div>
             <div className="sheet-content-scroll">
-              <ChatPage />
+              <ChatPage initialQuestId={activeChatQuestId} onClose={() => setChatOpen(false)} />
             </div>
           </section>
         </div>

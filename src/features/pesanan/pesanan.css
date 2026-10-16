@@ -247,22 +247,52 @@
     overflow-wrap: anywhere;
 }
 
-.pesanan-delete {
-    width: 100%;
+.pesanan-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin-top: auto;
+}
+
+.pesanan-chat-btn {
+    width: 100%;
     padding: 9px 8px;
     border: 1px solid #00877a;
     border-radius: 8px;
-    background: #ffffff;
+    background: #e6f5ee;
     color: #00877a;
     font: inherit;
     font-size: 11px;
     font-weight: 700;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.pesanan-chat-btn:hover {
+    background: #00877a;
+    color: #ffffff;
+}
+
+.pesanan-delete {
+    width: 100%;
+    padding: 9px 8px;
+    border: 1px solid #c93b2b;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #c93b2b;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
 }
 
 .pesanan-delete:hover {
-    background: #00877a;
+    background: #c93b2b;
     color: #ffffff;
 }
 

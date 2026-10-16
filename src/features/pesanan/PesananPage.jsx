@@ -25,7 +25,7 @@ const initialForm = {
     requestedWorkerId: '',
 };
 
-export default function PesananPage({ mode = 'create', onViewOrders }) {
+export default function PesananPage({ mode = 'create', onViewOrders, onOpenChat }) {
     const { user, quests, setQuests, notifications = [], setNotifications } = useApp();
 
     const [form, setForm] = useState(initialForm);
@@ -659,13 +659,25 @@ export default function PesananPage({ mode = 'create', onViewOrders }) {
                                     </figure>
                                 )}
 
-                                <button
-                                    type="button"
-                                    className="pesanan-delete"
-                                    onClick={() => setDeleteId(quest.id)}
-                                >
-                                    🗑 Hapus Quest
-                                </button>
+                                <div className="pesanan-card-actions">
+                                    {(quest.workerId || quest.requestedWorkerId) && (
+                                        <button
+                                            type="button"
+                                            className="pesanan-chat-btn"
+                                            onClick={() => onOpenChat?.(quest.id)}
+                                        >
+                                            💬 Chat Pekerja
+                                        </button>
+                                    )}
+
+                                    <button
+                                        type="button"
+                                        className="pesanan-delete"
+                                        onClick={() => setDeleteId(quest.id)}
+                                    >
+                                        🗑 Hapus Quest
+                                    </button>
+                                </div>
                             </article>
                         );
                     })}

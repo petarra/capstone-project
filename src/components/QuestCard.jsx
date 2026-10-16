@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
 const icons = { makanan: '🍱', antar: '🛵', kampus: '🎓' };
@@ -26,6 +27,7 @@ const statusLabels = {
 };
 
 export default function QuestCard({ quest, showDetails = false, onAccept, userId }) {
+  const navigate = useNavigate();
   const formattedPay = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -89,12 +91,20 @@ export default function QuestCard({ quest, showDetails = false, onAccept, userId
           <Button type="button" onClick={() => onAccept(quest.id)}>Ambil pekerjaan</Button>
         ) : showDetails && quest.workerId && quest.workerId === userId ? (
           <Button type="button" disabled>Sudah kamu ambil</Button>
-        ) : (
+        ) : showDetails ? (
           <Button
             disabled
-            title={showDetails ? 'Pekerjaan ini sudah tidak tersedia' : 'Dikerjakan anggota 2 dan 4'}
+            title="Pekerjaan ini sudah tidak tersedia"
           >
-            {showDetails ? statusLabels[quest.status] || quest.status : 'Detail / Ambil — belum dibuat'}
+            {statusLabels[quest.status] || quest.status}
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            onClick={() => navigate('/quest')}
+            title="Lihat quest di halaman Quest"
+          >
+            Lihat Quest →
           </Button>
         )}
       </div>

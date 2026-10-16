@@ -7,8 +7,8 @@ const statusLabels = {
   dikerjakan: 'Sedang dikerjakan',
 };
 
-export default function PekerjaanPage() {
-  const { user, quests, setQuests, setNotifications } = useApp();
+export default function PekerjaanPage({ onOpenChat }) {
+  const { user, quests, setQuests, setNotifications, setTransactions } = useApp();
   const proofInputRef = useRef(null);
   const [proofQuestId, setProofQuestId] = useState(null);
   const [proofFile, setProofFile] = useState(null);
@@ -173,6 +173,20 @@ export default function PekerjaanPage() {
         read: false,
         message: `${user.name} menyelesaikan "${currentQuest.title}" dan mengirim foto bukti.`,
       }, ...current]);
+      if (setTransactions) {
+        const reward = Number(currentQuest.partnerReward ?? currentQuest.pay ?? 0);
+        setTransactions((prev) => [
+          {
+            id: `income-${questId}-${Date.now()}`,
+            userId: user.id,
+            questId,
+            type: 'income',
+            amount: reward,
+            createdAt: completedAt,
+          },
+          ...prev,
+        ]);
+      }
       setProofQuestId(null);
       setProofFile(null);
     } catch (error) {
@@ -217,6 +231,7 @@ export default function PekerjaanPage() {
                 <small>📍 {quest.pickup} → {quest.destination}</small>
                 <div className="pekerjaan-actions">
                   <button className="button" type="button" onClick={() => acceptInvitation(quest.id)}>Terima undangan</button>
+                  <button className="button outline-btn pekerjaan-chat-btn" type="button" onClick={() => onOpenChat?.(quest.id)}>💬 Chat Pemesan</button>
                   <button className="button outline-btn" type="button" onClick={() => declineInvitation(quest.id)}>Tolak</button>
                 </div>
               </article>
@@ -311,6 +326,13 @@ export default function PekerjaanPage() {
                   <div className="pekerjaan-actions">
                     <button className="button" type="button" onClick={() => startCompletion(quest.id)}>
                       Selesaikan quest
+                    </button>
+                    <button
+                      className="button outline-btn pekerjaan-chat-btn"
+                      type="button"
+                      onClick={() => onOpenChat?.(quest.id)}
+                    >
+                      💬 Chat Pemesan
                     </button>
                     <button className="button outline-btn pekerjaan-cancel" type="button" onClick={() => cancelJob(quest.id)}>
                       Batalkan pekerjaan
